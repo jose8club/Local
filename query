@@ -1,0 +1,4 @@
+CREATE TABLE region(id_region INT PRIMARY KEY,nombre TEXT)
+CREATE TABLE ciudad(id_ciudad INTEGER PRIMARY KEY AUTOINCREMENT,nombre TEXT,fk_id_region INT, FOREIGN KEY(fk_id_region) REFERENCES region(id_region))
+CREATE TABLE local(id_local INTEGER PRIMARY KEY AUTOINCREMENT,nombre TEXT,direccion TEXT,fk_id_ciudad INTEGER, FOREIGN KEY(fk_id_ciudad) REFERENCES ciudad(id_ciudad))
+CREATE TABLE empleado(rut INT PRIMARY KEY,nombre TEXT,cargo TEXT,genero TEXT,sueldo TEXT,fk_id_local INTEGER,FOREIGN KEY(fk_id_local) REFERENCES local(id_local))
