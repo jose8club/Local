@@ -28,13 +28,27 @@ def get_locales_by_ciudad(id_ciudad):
     con.close()
     return locales
 
+def buscar_por_ciudad(text): 
+    con = connect()
+    c = con.cursor()
+    query = "SELECT id_ciudad FROM ciudad WHERE nombre=?"
+    try:
+    	resultado = c.execute(query,text)
+    	local = resultado.fetchone()
+    except sqlite3.Error as e:
+    	exito = False
+    print "Error:", e.args[0]
+    con.close()
+    return local
+
+
 def get_empleados_by_local(id_local):
     con = connect()
     c = con.cursor()
     query = """SELECT a.rut, a.nombre, a.cargo, a.genero, a.sueldo, b.nombre as 'local'
             FROM empleado a, local b WHERE a.fk_id_local = b.id_local
             AND a.fk_id_local = ?"""
-    result = c.execute(query, [id_marca])
+    result = c.execute(query, [id_local])
     empleados = result.fetchall()
     con.close()
     return empleados
