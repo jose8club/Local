@@ -69,7 +69,7 @@ class Ui_Dialog(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem)
         self.pushButton = QtGui.QPushButton(self.verticalLayoutWidget)
-        self.pushButton.setObjectName("pushButton")
+        self.pushButton.setObjectName("Add")
         self.horizontalLayout_6.addWidget(self.pushButton)
         self.verticalLayout.addLayout(self.horizontalLayout_6)
 
