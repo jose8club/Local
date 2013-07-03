@@ -1,13 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import sys
-import controller
-import view_form
-
-from empleados import Ui_MainWindow
 from PySide import QtGui, QtCore
 
-
+import view_form
 
 class Main(QtGui.QWidget):
 	def __init__(self):
@@ -18,7 +14,7 @@ class Main(QtGui.QWidget):
 		self.layouts()
 		self.tables()
 		#self.datos()
-		#self.signals()
+		self.signals()
 		self.show()
 
 	def layouts(self):
@@ -66,24 +62,20 @@ class Main(QtGui.QWidget):
 			return False
 	
 	# Metodo para agregar empleado en la ventana de Locales, este debe ir en la clase "Locales" asumo yo.
-	def Add_Empleado(self): 
+	def create(self): 
 		#Abre la ventana "Form" del empleado
-		form = view_form.Form(self)
-        	form.rejected.connect(self.datos)
-        	form.exec_()
+		empleados = view_form.Form(self)
+			#empleados.rejected.connect(self.datos)
+			#empleados.exec_()
 
 		#Enlaza el boton con el metodo agregar (add).
-		form.ui.add_btn.clicked.connect(form.add)
+		#empleados.ui.add_btn.clicked.connect(form.add)
 
-		form.rejected.connect(self.datos)
-		form.exec_()
-        
-         # Este boton deberia abrir la ventana Locales
-	 # def create(self): 
+		#empleados.rejected.connect(self.datos)
+		empleados.exec_()
+		
+		 # Este boton deberia abrir la ventana Locales
 	
-
-
-
 
 def run():
 	app = QtGui.QApplication(sys.argv)
