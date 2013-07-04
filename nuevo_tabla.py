@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'nuevo_tabla.ui'
 #
-# Created: Thu Jul  4 12:22:44 2013
+# Created: Thu Jul  4 12:26:16 2013
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -21,13 +21,13 @@ class Ui_MainWindow(object):
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.filtro = QtGui.QLineEdit(self.centralwidget)
-        self.filtro.setGeometry(QtCore.QRect(80, 30, 471, 27))
+        self.filtro.setGeometry(QtCore.QRect(80, 30, 351, 27))
         self.filtro.setObjectName(_fromUtf8("filtro"))
         self.combo = QtGui.QComboBox(self.centralwidget)
-        self.combo.setGeometry(QtCore.QRect(570, 30, 78, 27))
+        self.combo.setGeometry(QtCore.QRect(450, 30, 78, 27))
         self.combo.setObjectName(_fromUtf8("combo"))
         self.b1 = QtGui.QPushButton(self.centralwidget)
-        self.b1.setGeometry(QtCore.QRect(680, 30, 98, 27))
+        self.b1.setGeometry(QtCore.QRect(540, 30, 98, 27))
         self.b1.setObjectName(_fromUtf8("b1"))
         self.b3 = QtGui.QPushButton(self.centralwidget)
         self.b3.setGeometry(QtCore.QRect(790, 30, 101, 27))
@@ -41,6 +41,9 @@ class Ui_MainWindow(object):
         self.table = QtGui.QListView(self.centralwidget)
         self.table.setGeometry(QtCore.QRect(9, 80, 880, 430))
         self.table.setObjectName(_fromUtf8("table"))
+        self.local = QtGui.QPushButton(self.centralwidget)
+        self.local.setGeometry(QtCore.QRect(660, 30, 98, 27))
+        self.local.setObjectName(_fromUtf8("local"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 900, 25))
@@ -59,6 +62,7 @@ class Ui_MainWindow(object):
         self.b3.setText(QtGui.QApplication.translate("MainWindow", "Eliminar Local", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Ciudad", None, QtGui.QApplication.UnicodeUTF8))
         self.pushSalir.setText(QtGui.QApplication.translate("MainWindow", "Salir", None, QtGui.QApplication.UnicodeUTF8))
+        self.local.setText(QtGui.QApplication.translate("MainWindow", "Crear Local", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":
