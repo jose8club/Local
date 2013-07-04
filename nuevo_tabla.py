@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'nuevo_tabla.ui'
 #
-# Created: Thu Jul  4 12:17:38 2013
+# Created: Thu Jul  4 12:22:44 2013
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
