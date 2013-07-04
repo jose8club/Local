@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
 from PySide import QtGui, QtCore
 import controller
 #Importamos el constructor de la clase generada automáticamente
@@ -10,7 +11,8 @@ class Form(QtGui.QDialog):
         QtGui.QDialog.__init__(self, parent)
         self.ui =  Ui_Form()
         self.ui.setupUi(self)
-        self.ui.btn_cancel.clicked.connect(self.cancel)
+        self.show()
+        #self.ui.btn_cancel.clicked.connect(self.cancel)
     
 
 def add(self):
@@ -41,3 +43,7 @@ def add(self):
 def cancel(self):
 	self.reject()
 
+if __name__ == "__main__":
+	app = QtGui.QApplication(sys.argv)
+	main = Form()
+	sys.exit(app.exec_())
