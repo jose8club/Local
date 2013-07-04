@@ -29,13 +29,14 @@ class Main(QtGui.QWidget):
 		self.filtro = QtGui.QLineEdit()
 		self.combo = QtGui.QComboBox(self)
 		#self.combo.activated[int].connect(self.onActivated)
+		self.b2 = QtGui.QPushButton(u"&Crear local")
 		self.b1 = QtGui.QPushButton(u"&Buscar")
 		self.b3 = QtGui.QPushButton(u"&Eliminar local")
 		self.hl.addWidget(self.label)
 		self.hl.addWidget(self.filtro)
 		self.hl.addWidget(self.combo)
 		self.hl.addWidget(self.b1)
-		
+		self.hl.addWidget(self.b2)
 		self.hl.addWidget(self.b3)
 		##agreagar este layout al vertical
 		self.layout.addWidget(self.l)
