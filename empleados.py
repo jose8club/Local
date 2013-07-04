@@ -2,21 +2,19 @@
 
 # Form implementation generated from reading ui file 'empleados.ui'
 #
-# Created: Mon Jun 24 22:55:00 2013
+# Created: Wed Jul  3 18:31:18 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QtGui.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget = QtGui.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(40, 20, 731, 521))
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(803, 581)
+        self.verticalLayoutWidget = QtGui.QWidget(Dialog)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 20, 731, 521))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -46,21 +44,13 @@ class Ui_MainWindow(object):
         self.aceptar.setObjectName("aceptar")
         self.horizontalLayout_2.addWidget(self.aceptar)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 25))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.agregar.setText(QtGui.QApplication.translate("MainWindow", "Agregar empleado", None, QtGui.QApplication.UnicodeUTF8))
-        self.eliminar.setText(QtGui.QApplication.translate("MainWindow", "Eliminar empleado", None, QtGui.QApplication.UnicodeUTF8))
-        self.aceptar.setText(QtGui.QApplication.translate("MainWindow", "Aceptar", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.agregar.setText(QtGui.QApplication.translate("Dialog", "Agregar empleado", None, QtGui.QApplication.UnicodeUTF8))
+        self.eliminar.setText(QtGui.QApplication.translate("Dialog", "Eliminar empleado", None, QtGui.QApplication.UnicodeUTF8))
+        self.aceptar.setText(QtGui.QApplication.translate("Dialog", "Aceptar", None, QtGui.QApplication.UnicodeUTF8))
 
