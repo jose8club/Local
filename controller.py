@@ -8,7 +8,7 @@ def connect():
     con.row_factory = sqlite3.Row
     return con
 
-def get_locales():
+def obtener_locales():
     con = connect()
     c = con.cursor()
     query = """SELECT id_local,nombre,direccion FROM local"""
@@ -17,7 +17,7 @@ def get_locales():
     con.close()
     return locales
 
-def get_locales_by_ciudad(id_ciudad):
+def obtener_locales_por_ciudad(id_ciudad):
     con = connect()
     c = con.cursor()
     query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
@@ -42,7 +42,7 @@ def buscar_por_ciudad(text):
     return local
 
 
-def get_empleados_by_local(id_local):
+def obtener_empleados_por_local(id_local):
     con = connect()
     c = con.cursor()
     query = """SELECT a.rut, a.nombre, a.cargo, a.genero, a.sueldo, b.nombre as 'local'
@@ -53,7 +53,7 @@ def get_empleados_by_local(id_local):
     con.close()
     return empleados
 
-def delete_local(id_local):
+def eliminar_local(id_local):
     exito = False
     con = connect()
     c = con.cursor()
@@ -68,7 +68,7 @@ def delete_local(id_local):
     con.close()
     return exito
 
-def add_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
+def agregar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     success = False
     con = connect()
     c = con.cursor()
@@ -84,4 +84,59 @@ def add_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     con.close()
     return success
 
+def editar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
+    success = False
+    con = connect()
+    c = con.cursor()
+    values = [rut, nombre, cargo, genero, sueldo,fk_id_local]
+    query = "UPDATE empleado SET nombre = ?, cargo = ?, genero = ?, sueldo = ?, fk_id_local = ? WHERE rut = ?"
+    try:
+        result = c.execute(query, values)
+        success = True
+        con.commit()
+    except sqlite3.Error as e:
+        success = False
+        print "Error: ", e.args[0]
+    con.close()
+    return success
 
+def obtener_empleado_por_rut(rut):
+    con = connect()
+    c = con.cursor()
+    query = """SELECT rut, nombre, cargo, genero, sueldo
+            FROM empleado WHERE rut = ?"""
+    result = c.execute(query, [rut])
+    empleados = result.fetchall()
+    con.close()
+    return empleados
+
+def eliminar_empleado(rut):
+    exito = False
+    con = connect()
+    c = con.cursor()
+    query = "DELETE FROM empleado WHERE rut = ?"
+    try:
+        result = c.execute(query, [rut])
+        con.commit()
+        exito = True
+    except sqlite3.Error as e:
+        exito = False
+        print "Error:", e.args[0]
+    con.close()
+    return exito
+
+def agregar_locales(nombre, direccion, fk_id_ciudad):
+    success = False
+    con = connect()
+    c = con.cursor()
+    values = [nombre, direccion,fk_id_local]
+    query = "INSERT INTO local (nombre, direccion,fk_id_ciudad) VALUES(?,?,?)"
+    try:
+        result = c.execute(query, values)
+        success = True
+        con.commit()
+    except sqlite3.Error as e:
+        success = False
+        print "Error: ", e.args[0]
+    con.close()
+    return success
