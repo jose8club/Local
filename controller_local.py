@@ -93,4 +93,32 @@ def add_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     con.close()
     return success
 
+def search(pre='*',mar='*'):
+    #devuelve las entradas en que los nombres comienzan con la variable 'pre' de ciudad 'mar'.
+    con = connect()
+    c = con.cursor()
+    if mar != '*':
+    #Query donde obtiene todos los locales determinados por la barra de busqueda y la ciudad filtrada.
+        try:
+           query = "SELECT id_ciudad FROM ciudad WHERE nombre = ?"
+	   resultado = c.execute(query,[mar])
+	   num = resultado.fetchone()
+	   query = "SELECT * FROM local WHERE nombre LIKE ? AND fk_id_ciudad LIKE ?"
+	   resultado = c.execute(query,[pre,num[0]])
+        except sqlite3.Error as e:
+            exito = False
+	    print "Error:", e.args[0]
+    else:
+    #Query donde no hay filtro de ciudad, solo busca elementos relacionados en la barra de busqueda.
+        num = '*'
+        query = "SELECT * FROM local WHERE nombre LIKE ?"
+        try:
+           resultado = c.execute(query,[pre])
+        except sqlite3.Error as e:
+            exito = False
+            print "Error:", e.args[0]
+    prod = resultado.fetchall()
+    con.close()
+    return prod
+
 

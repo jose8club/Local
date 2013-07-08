@@ -34,7 +34,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="b1">
+   <widget class="QPushButton" name="buscar_btn">
     <property name="geometry">
      <rect>
       <x>540</x>
@@ -47,10 +47,10 @@
      <string>Buscar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="b3">
+   <widget class="QPushButton" name="eliminar_btn">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>780</x>
       <y>30</y>
       <width>101</width>
       <height>27</height>
@@ -96,7 +96,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="local">
+   <widget class="QPushButton" name="crear_btn">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
