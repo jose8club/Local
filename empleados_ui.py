@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'empleados.ui'
 #
-# Created: Wed Jul  3 18:31:18 2013
+# Created: Sun Jul  7 22:31:05 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!

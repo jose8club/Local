@@ -5,9 +5,9 @@ import sys
 from PySide import QtGui, QtCore
 import controller_empleados_por_local as c
 
-import view_form
+import empleados_form
 #Importamos el constructor de la clase generada automáticamente
-from empleados import Ui_Dialog
+from empleados_ui import Ui_Dialog
 class Form(QtGui.QDialog):
 	def __init__(self, parent=None):
 		QtGui.QDialog.__init__(self, parent)
@@ -19,7 +19,7 @@ class Form(QtGui.QDialog):
 		self.show()
 
 	def conectar(self):
-		form = view_form.Form(self)
+		form = empleados_form.Form(self)
 		form.exec_()
 
 	def datos(self, id_local=None):
@@ -72,7 +72,7 @@ class Form(QtGui.QDialog):
 		else:
 			rut = model.index(index.row(), 0, QtCore.QModelIndex()).data()
 			id_local = model.index(index.row(), 5, QtCore.QModelIndex()).data()
-			if (controller_empleados_por_local.eliminar_empleado(rut)):
+			if (c.eliminar_empleado(rut)):
 				self.datos(id_local)
 				msgBox = QtGui.QMessageBox()
 				msgBox.setText("EL empleado de este local fue eliminado.")
