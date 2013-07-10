@@ -14,6 +14,7 @@ class Form(QtGui.QDialog):
 		self.ui =  Ui_Dialog()
 		self.ui.setupUi(self)
 		self.ui.agregar.clicked.connect(self.conectar)
+		self.ui.eliminar.clicked.connect(self.eliminar)
 		self.datos()
 		self.show()
 
@@ -62,11 +63,11 @@ class Form(QtGui.QDialog):
 
 
 	def eliminar(self):
-		model = self.tableView.model()
-		index = self.tableView.currentIndex()
+		model = self.ui.tableView.model()
+		index = self.ui.tableView.currentIndex()
 		if index.row() == -1: #No se ha seleccionado una fila
-			self.errorMessageDialog = QtGui.QErrorMessage(self)
-			self.errorMessageDialog.showMessage("Debe seleccionar una fila")
+			self.ui.errorMessageDialog = QtGui.QErrorMessage(self)
+			self.ui.errorMessageDialog.showMessage("Debe seleccionar una fila")
 			return False
 		else:
 			rut = model.index(index.row(), 0, QtCore.QModelIndex()).data()
