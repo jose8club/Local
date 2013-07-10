@@ -88,7 +88,7 @@ def editar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     success = False
     con = connect()
     c = con.cursor()
-    values = [rut, nombre, cargo, genero, sueldo,fk_id_local]
+    values = [nombre, cargo, genero, sueldo,fk_id_local, rut]
     query = "UPDATE empleado SET nombre = ?, cargo = ?, genero = ?, sueldo = ?, fk_id_local = ? WHERE rut = ?"
     try:
         result = c.execute(query, values)

@@ -6,6 +6,7 @@ from PySide import QtGui, QtCore
 from form import Ui_Form
 
 import empleados_grid
+import controller_locales as c
 
 class Main(QtGui.QWidget):
 	def __init__(self):
@@ -28,7 +29,10 @@ class Main(QtGui.QWidget):
 		self.label = QtGui.QLabel(u"Ciudad")
 		self.filtro = QtGui.QLineEdit()
 		self.combo = QtGui.QComboBox(self)
-		#self.combo.activated[int].connect(self.onActivated)
+		box = c.obtener_ciudades()
+		for element in box:
+			self.combo.addItem(element["nombre"])
+		self.combo.activated[int].connect(self.Activado)
 		self.b2 = QtGui.QPushButton(u"&Crear local")
 		self.b1 = QtGui.QPushButton(u"&Buscar")
 		self.b3 = QtGui.QPushButton(u"&Eliminar local")
@@ -75,7 +79,46 @@ class Main(QtGui.QWidget):
 		
 		#self.datos()
 		 # Este boton deberia abrir la ventana Locales
-	
+	def Activado(self, index):
+		
+		
+		id_ciudad = self.combo.itemData(index)
+		nombre_empleados = self.combo.itemText(index)
+		empleados = c.obtener_locales_por_ciudad(id_ciudad)
+
+		self.model = QtGui.QStandardItemModel(len(empleados), 6)
+		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+		self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
+		self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"direccion"))
+		self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"empleados"))
+		self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"fk_id_ciudad"))
+		
+
+
+
+		r = 0
+		for row in empleados:
+			print row
+			index = self.model.index(r, 0, QtCore.QModelIndex()) 
+			self.model.setData(index, row[0])
+			index = self.model.index(r, 1, QtCore.QModelIndex()) 
+			self.model.setData(index, row[1])
+			index = self.model.index(r, 2, QtCore.QModelIndex()) 
+			self.model.setData(index, row[2])
+			index = self.model.index(r, 3, QtCore.QModelIndex())
+			self.model.setData(index, row[3])
+			index = self.model.index(r, 4, QtCore.QModelIndex())
+			self.model.setData(index, row[4])
+			
+			r = r+1
+		self.table.setModel(self.model)
+
+		self.table.setColumnWidth(0, 120)
+		self.table.setColumnWidth(1, 120)
+		self.table.setColumnWidth(2, 120)
+		self.table.setColumnWidth(3, 120)
+		self.table.setColumnWidth(4, 120)
+		self.table.setColumnWidth(5, 120)
 
 def run():
 	app = QtGui.QApplication(sys.argv)
