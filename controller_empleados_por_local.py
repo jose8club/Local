@@ -9,7 +9,7 @@ def connect():
     return con
 
 def obtener_empleados_por_local(id_local=None):
-    id_local = 1
+    id_local = 2
     con = connect()
     c = con.cursor()
     query = """SELECT a.rut, a.nombre, a.cargo, a.genero, a.sueldo, b.nombre as 'local'
