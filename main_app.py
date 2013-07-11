@@ -16,7 +16,7 @@ class Main(QtGui.QWidget):
 		self.layout = QtGui.QVBoxLayout(self)
 		self.layouts()
 		self.tables()
-		#self.datos()
+		self.datos()
 		self.signals()
 		self.show()
 
@@ -56,7 +56,37 @@ class Main(QtGui.QWidget):
 
 		self.layout.addWidget(self.table)
 
-	
+	def datos(self):
+		empleados = c.obtener_locales()
+
+		self.model = QtGui.QStandardItemModel(len(empleados), 3)
+		#self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Nombre"))
+		self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"direccion"))
+		#self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"empleados"))
+		self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"fk_id_ciudad"))
+		
+
+
+
+		r = 0
+		for row in empleados:
+			
+			#index = self.model.index(r, 0, QtCore.QModelIndex()) 
+			#self.model.setData(index, row[0])
+			index = self.model.index(r, 0, QtCore.QModelIndex()) 
+			self.model.setData(index, row[1])
+			index = self.model.index(r, 1, QtCore.QModelIndex()) 
+			self.model.setData(index, row[2])
+			index = self.model.index(r, 2, QtCore.QModelIndex())
+			self.model.setData(index, row[3])
+			
+			r = r+1
+		self.table.setModel(self.model)
+
+		self.table.setColumnWidth(0, 300)
+		self.table.setColumnWidth(1, 300)
+		self.table.setColumnWidth(2, 300)
 
 
 	def signals(self):
@@ -87,39 +117,37 @@ class Main(QtGui.QWidget):
 		nombre_empleados = self.combo.itemText(index)
 		empleados = c.obtener_locales_por_ciudad(id_ciudad)
 
-		self.model = QtGui.QStandardItemModel(len(empleados), 4)
-		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
-		self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
-		self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"direccion"))
+		self.model = QtGui.QStandardItemModel(len(empleados), 3)
+		#self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Nombre"))
+		self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"direccion"))
 		#self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"empleados"))
-		self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"fk_id_ciudad"))
+		self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"fk_id_ciudad"))
 		
 
 
 
 		r = 0
 		for row in empleados:
-			print row
+			
+			#index = self.model.index(r, 0, QtCore.QModelIndex()) 
+			#self.model.setData(index, row[0])
 			index = self.model.index(r, 0, QtCore.QModelIndex()) 
-			self.model.setData(index, row[0])
-			index = self.model.index(r, 1, QtCore.QModelIndex()) 
 			self.model.setData(index, row[1])
-			index = self.model.index(r, 2, QtCore.QModelIndex()) 
+			index = self.model.index(r, 1, QtCore.QModelIndex()) 
 			self.model.setData(index, row[2])
-			index = self.model.index(r, 3, QtCore.QModelIndex())
+			index = self.model.index(r, 2, QtCore.QModelIndex())
 			self.model.setData(index, row[3])
-			# index = self.model.index(r, 4, QtCore.QModelIndex())
-			# self.model.setData(index, row[4])
 			
 			r = r+1
 		self.table.setModel(self.model)
 
-		self.table.setColumnWidth(0, 235)
-		self.table.setColumnWidth(1, 235)
-		self.table.setColumnWidth(2, 235)
-		self.table.setColumnWidth(3, 235)
-		# self.table.setColumnWidth(4, 120)
-		# self.table.setColumnWidth(5, 120)
+		self.table.setColumnWidth(0, 300)
+		self.table.setColumnWidth(1, 300)
+		self.table.setColumnWidth(2, 300)
+		#self.table.setColumnWidth(3, 235)
+		#self.table.setColumnWidth(4, 120)
+		#self.table.setColumnWidth(5, 120)
 
 def run():
 	app = QtGui.QApplication(sys.argv)
