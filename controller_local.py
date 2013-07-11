@@ -18,7 +18,7 @@ def get_regiones():
     return regiones
 
 
-def get_ciudades():
+def get_ciudadess():
     con = connect()
     c = con.cursor()
     query = "SELECT * FROM ciudad"
@@ -30,6 +30,16 @@ def get_ciudades():
         print "Error:", e.args[0]
     con.close()
     return ciudades
+
+def get_ciudades():
+    con = connect()
+    c = con.cursor()
+    query = """SELECT id_ciudad, nombre FROM ciudad"""
+    result = c.execute(query)
+    ciudades = result.fetchall()
+    con.close()
+    return ciudades
+
 
 def get_names():
     #devuelve un arreglo con los nombres de los locales
@@ -44,10 +54,20 @@ def get_names():
     con.close()
     return names
 
+def get_localess():
+    con = connect()
+    c = con.cursor()
+    query = """SELECT nombre,direccion,fk_id_ciudad FROM local"""
+    result = c.execute(query)
+    locales = result.fetchall()
+    con.close()
+    return locales
+
 def get_locales():
     con = connect()
     c = con.cursor()
-    query = """SELECT id_local,nombre,direccion,empleados,fk_id_ciudad FROM local"""
+    query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
+            FROM local a, ciudad b WHERE a.fk_id_ciudad = b.id_ciudad"""
     result = c.execute(query)
     locales = result.fetchall()
     con.close()
@@ -56,10 +76,10 @@ def get_locales():
 def get_locales_by_ciudad(id_ciudad):
     con = connect()
     c = con.cursor()
-    query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
+    query = """SELECT a.nombre, a.direccion, b.nombre as 'ciudad'
             FROM local a, ciudad b WHERE a.fk_id_ciudad = b.id_ciudad
             AND a.fk_id_ciudad = ?"""
-    result = c.execute(query, [id_marca])
+    result = c.execute(query, [id_ciudad])
     locales = result.fetchall()
     con.close()
     return locales
@@ -121,12 +141,12 @@ def add_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     return success
 
 
-def add_local(id_local, nombre, direccion, empleados, fk_id_ciudad):
+def add_local(nombre, direccion, fk_id_ciudad):
     success = False
     con = connect()
     c = con.cursor()
-    values = [id_local, nombre, direccion, empleados, fk_id_ciudad]
-    query = "INSERT INTO local (id_local, nombre, direccion, empleados, fk_id_ciudad) VALUES(?,?,?,?,?,?)"
+    values = [nombre, direccion,fk_id_ciudad]
+    query = "INSERT INTO local (nombre, direccion,fk_id_ciudad) VALUES(?,?,?)"
     try:
         result = c.execute(query, values)
         success = True
