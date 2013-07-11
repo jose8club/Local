@@ -27,8 +27,7 @@ class Locales(QtGui.QMainWindow):
         self.set_signals()
 	self.render_table()
 	self.show()
-        
-        
+             
     def render_table(self):
         #Indica que el usuario al hacer click en la grilla seleccionará
         #una fila completa y no una celda
@@ -38,10 +37,12 @@ class Locales(QtGui.QMainWindow):
         #Permite al usuario ordenar por columnas
         self.ui.table_win.setSortingEnabled(True)
 
-
-
     def conectar_tabla_empleados(self):
-        form = empleados_grid.Form(self)
+	model = self.ui.table_win.model()
+	index = self.ui.table_win.currentIndex()
+	id_ciudad = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+	print id_ciudad
+        form = empleados_grid.Form(self,index)
 	form.exec_()
 
    
@@ -68,8 +69,6 @@ class Locales(QtGui.QMainWindow):
         else:
             ciudad = controller_local.get_locales_by_ciudad(id_ciudad)
         self.load_datos(ciudad)
-
-  
 
     def setup_search_bar(self):
         #agrega la caracteristica de autocompletacion
