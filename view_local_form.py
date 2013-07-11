@@ -5,11 +5,11 @@ import sys
 from PySide import QtGui, QtCore
 import controller_local
 #Importamos el constructor de la clase generada automáticamente
-from local import Ui_Local
+from local2_ui import Ui_Form
 class Form(QtGui.QDialog):
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self, parent)
-        self.ui =  Ui_Local()
+        self.ui =  Ui_Form()
         self.ui.setupUi(self)
         self.show()
         #self.ui.btn_cancel.clicked.connect(self.cancel)

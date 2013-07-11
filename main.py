@@ -4,9 +4,11 @@
 import sys
 import controller
 import controller_local
+import view_local_form
 from PySide import QtGui, QtCore
-from main_locales import Ui_MainWindow
-from local import Ui_Local
+from main2_ui import Ui_window
+
+
 
 
 class Locales(QtGui.QMainWindow):
@@ -17,7 +19,7 @@ class Locales(QtGui.QMainWindow):
 
     def __init__(self,parent=None):
         super(Locales, self).__init__(parent)
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_window()
 	self.ui.setupUi(self)
 	self.load_datos()
 	self.setup_search_bar()
@@ -115,13 +117,16 @@ class Locales(QtGui.QMainWindow):
            		self.model.setData(index, row['fk_id_ciudad'])
            		r = r+1
 
-        	self.ui.table.setModel(self.model)
+                self.ui.table_win.setModel(self.model)
 
-        	self.ui.table.setColumnWidth(0, 150)
-        	self.ui.table.setColumnWidth(1, 150)
-      	 	self.ui.table.setColumnWidth(2, 150)
-        	self.ui.table.setColumnWidth(3, 150)
-		self.ui.table.setColumnWidth(4, 150)
+		self.ui.table_win.setColumnWidth(0, 120)
+		self.ui.table_win.setColumnWidth(1, 120)
+		self.ui.table_win.setColumnWidth(2, 120)
+		self.ui.table_win.setColumnWidth(3, 120)
+		self.ui.table_win.setColumnWidth(4, 120)
+		self.ui.table_win.setColumnWidth(5, 120)
+
+
 		
 		self.update_search()
 
