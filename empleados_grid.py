@@ -24,7 +24,7 @@ class Form(QtGui.QDialog):
 
 	def datos(self, id_local):
 		empleados = c.obtener_empleados_por_local(id_local)
-		print empleados
+		#print empleados
 		#Creamos el modelo asociado a la tabla
 		self.model = QtGui.QStandardItemModel(len(empleados), 6)
 		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
@@ -32,7 +32,7 @@ class Form(QtGui.QDialog):
 		self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Cargo"))
 		self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Genero"))
 		self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Sueldo"))
-		self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"fk_id_local"))
+		self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"local"))
 
 		r = 0
 		for row in empleados:
