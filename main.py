@@ -40,9 +40,8 @@ class Locales(QtGui.QMainWindow):
     def conectar_tabla_empleados(self):
 	model = self.ui.table_win.model()
 	index = self.ui.table_win.currentIndex()
-	id_ciudad = model.index(index.row(), 0, QtCore.QModelIndex()).data()
-	print id_ciudad
-        form = empleados_grid.Form(self,index)
+	id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+        form = empleados_grid.Form(self,id_local)
 	form.exec_()
 
    
@@ -117,26 +116,30 @@ class Locales(QtGui.QMainWindow):
 			locales = controller_local.get_locales()
         	
         	self.model = QtGui.QStandardItemModel(len(locales), 3)
-        	self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Nombre"))
-        	self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Direccion"))
-		self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Ciudad"))
+		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+        	self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
+        	self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Direccion"))
+		self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ciudad"))
 
         	r = 0
         	for row in locales:
-            		index = self.model.index(r, 0, QtCore.QModelIndex()); 
-            		self.model.setData(index, row['nombre'])
+			index = self.model.index(r, 0, QtCore.QModelIndex()); 
+            		self.model.setData(index, row['id_local'])
             		index = self.model.index(r, 1, QtCore.QModelIndex()); 
-            		self.model.setData(index, row['direccion'])
+            		self.model.setData(index, row['nombre'])
             		index = self.model.index(r, 2, QtCore.QModelIndex()); 
+            		self.model.setData(index, row['direccion'])
+            		index = self.model.index(r, 3, QtCore.QModelIndex()); 
            		self.model.setData(index, row['ciudad'])
            		r = r+1
 
                 self.ui.table_win.setModel(self.model)
-
+		
 		self.ui.table_win.setColumnWidth(0, 120)
 		self.ui.table_win.setColumnWidth(1, 120)
 		self.ui.table_win.setColumnWidth(2, 120)
-		
+		self.ui.table_win.setColumnWidth(3, 120)
+		self.ui.table_win.hideColumn(0)
 
 		self.update_search()
 

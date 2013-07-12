@@ -3,28 +3,28 @@
 
 import sys
 from PySide import QtGui, QtCore
-import controller_empleados_por_local as c
+import controller as c
 
 import empleados_form
 #Importamos el constructor de la clase generada automáticamente
 from empleados_ui import Ui_Dialog
 class Form(QtGui.QDialog):
-	def __init__(self, parent=None):
+	def __init__(self, parent=None, id_local=None):
 		QtGui.QDialog.__init__(self, parent)
 		self.ui =  Ui_Dialog()
 		self.ui.setupUi(self)
 		self.ui.agregar.clicked.connect(self.conectar)
 		self.ui.eliminar.clicked.connect(self.eliminar)
-		self.datos()
+		self.datos(id_local)
 		self.show()
 
 	def conectar(self):
 		form = empleados_form.Form(self)
 		form.exec_()
 
-	def datos(self, id_local=None):
-		#empleados = obtener_empleados_por_local(id_local)
-		empleados = c.obtener_empleados_por_local()
+	def datos(self, id_local):
+		empleados = c.obtener_empleados_por_local(id_local)
+		print empleados
 		#Creamos el modelo asociado a la tabla
 		self.model = QtGui.QStandardItemModel(len(empleados), 6)
 		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
@@ -34,11 +34,9 @@ class Form(QtGui.QDialog):
 		self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Sueldo"))
 		self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"fk_id_local"))
 
-
-
 		r = 0
 		for row in empleados:
-			print row
+			#print row
 			index = self.model.index(r, 0, QtCore.QModelIndex()) 
 			self.model.setData(index, row[0])
 			index = self.model.index(r, 1, QtCore.QModelIndex()) 
