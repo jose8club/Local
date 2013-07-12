@@ -76,7 +76,7 @@ def get_locales():
 def get_locales_by_ciudad(id_ciudad):
     con = connect()
     c = con.cursor()
-    query = """SELECT a.nombre, a.direccion, b.nombre as 'ciudad'
+    query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
             FROM local a, ciudad b WHERE a.fk_id_ciudad = b.id_ciudad
             AND a.fk_id_ciudad = ?"""
     result = c.execute(query, [id_ciudad])
