@@ -41,8 +41,12 @@ class Locales(QtGui.QMainWindow):
 
 
     def conectar_tabla_empleados(self):
-        form = empleados_grid.Form(self)
-	form.exec_()
+            model = self.ui.table_win.model()
+            index = self.ui.table_win.currentIndex()
+            id_ciudad = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+            print id_ciudad
+            form = empleados_grid.Form(self,index)
+            form.exec_()
 
    
     def set_signals(self):
@@ -134,9 +138,9 @@ class Locales(QtGui.QMainWindow):
 
                 self.ui.table_win.setModel(self.model)
 
-		self.ui.table_win.setColumnWidth(0, 120)
-		self.ui.table_win.setColumnWidth(1, 120)
-		self.ui.table_win.setColumnWidth(2, 120)
+		self.ui.table_win.setColumnWidth(0, 250)
+		self.ui.table_win.setColumnWidth(1, 250)
+		self.ui.table_win.setColumnWidth(2, 250)
 		
 
 		self.update_search()
