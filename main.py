@@ -136,9 +136,9 @@ class Locales(QtGui.QMainWindow):
                 self.ui.table_win.setModel(self.model)
 		
 		self.ui.table_win.setColumnWidth(0, 120)
-		self.ui.table_win.setColumnWidth(1, 120)
-		self.ui.table_win.setColumnWidth(2, 120)
-		self.ui.table_win.setColumnWidth(3, 120)
+		self.ui.table_win.setColumnWidth(1, 250)
+		self.ui.table_win.setColumnWidth(2, 250)
+		self.ui.table_win.setColumnWidth(3, 250)
 		self.ui.table_win.hideColumn(0)
 
 		self.update_search()
