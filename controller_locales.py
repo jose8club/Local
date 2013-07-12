@@ -11,7 +11,7 @@ def connect():
 def obtener_locales():
 	con = connect()
 	c = con.cursor()
-	query = """SELECT id_local,nombre,direccion FROM local"""
+	query = """SELECT * FROM local"""
 	result = c.execute(query)
 	locales = result.fetchall()
 	con.close()
@@ -36,3 +36,18 @@ def obtener_locales_por_ciudad(id_ciudad):
 	locales = result.fetchall()
 	con.close()
 	return locales
+
+def eliminar_local(id_local):
+	exito = False
+	con = connect()
+	c = con.cursor()
+	query = "DELETE FROM local WHERE id_local = ?"
+	try:
+		result = c.execute(query, [id_local])
+		con.commit()
+		exito = True
+	except sqlite3.Error as e:
+		exito = False
+		print "Error:", e.args[0]
+	con.close()
+	return exito

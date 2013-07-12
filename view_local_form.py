@@ -16,24 +16,24 @@ class Form(QtGui.QDialog):
         self.ui.PushSalir.clicked.connect(self.cancel)
     
 
-def add(self):
-	if self.ui.lineNombre.text() == "":
-		msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el nombre Local.")
-	elif self.ui.lineDireccion.text() == "":
-		msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese direccion del Local.")
-	elif self.ui.lineCiudad.text() == "":
-		msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese la ciudad.")
-	
-	else:
-		res = controller_local.add_local(self.ui.lineNombre.text(),self.ui.lineDireccion.text(),self.ui.lineCiudad.text())
-	if res:
-		msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
-		self.reject()
-	else:
-		msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo agregar el registro.")
+    def add(self):
+        if self.ui.lineNombre.text() == "":
+            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el nombre Local.")
+        elif self.ui.lineDireccion.text() == "":
+            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese direccion del Local.")
+        elif self.ui.lineCiudad.text() == "":
+            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese la ciudad.")
+    
+        else:
+            res = controller_local.add_local(self.ui.lineNombre.text(),self.ui.lineDireccion.text(),self.ui.lineCiudad.text())
+        if res:
+            msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
+            self.reject()
+        else:
+            msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo agregar el registro.")
 
 
 
-def cancel(self):
-    self.reject()
+    def cancel(self):
+        self.reject()
 
