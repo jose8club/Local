@@ -30,7 +30,7 @@ def add(self):
 		msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el codigo del local.")
 
 	else:
-		res = controller.add_empleado(self.ui.rut_bar.text(),self.ui.nombre_bar.text(),self.ui.cargo_bar.text(),
+		res = controller.agregar_empleado(self.ui.rut_bar.text(),self.ui.nombre_bar.text(),self.ui.cargo_bar.text(),
 		self.ui.genero_bar.text(),self.ui.sueldo_bar.text(),self.ui.local_bar.text())
 	if res:
 		msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
