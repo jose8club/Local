@@ -20,6 +20,8 @@ class Form(QtGui.QDialog):
 
 	def conectar(self):
 		form = empleados_form.Form(self)
+		form.setWindowTitle("Agregar un empleado")
+		form.ui.add_btn.clicked.connect(form.add)
 		form.exec_()
 
 	def datos(self, id_local):

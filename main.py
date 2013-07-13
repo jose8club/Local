@@ -42,6 +42,7 @@ class Locales(QtGui.QMainWindow):
 	index = self.ui.table_win.currentIndex()
 	id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
         form = empleados_grid.Form(self,id_local)
+        form.setWindowTitle("Empleados por local")
 	form.exec_()
 
    
@@ -66,7 +67,7 @@ class Locales(QtGui.QMainWindow):
         if id_ciudad == -1:
             ciudad = controller_local.get_locales()
         else:
-            ciudad = controller_local.get_locales_by_ciudad(id_ciudad)
+            ciudad = controller_local.get_locales_by_ciudadb(id_ciudad)
         self.load_datos(ciudad)
 
     def setup_search_bar(self):
