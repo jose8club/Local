@@ -12,23 +12,26 @@ from main2_ui import Ui_window
 
 
 class Locales(QtGui.QMainWindow):
+    """Esta es la clase de la ventana principal que creará la grilla dond estan los locales"""
 
     first_time = True
     ciudad_actual = "*"
     s = "%"
 
     def __init__(self,parent=None):
+        """constructor que crea la ventana"""
         super(Locales, self).__init__(parent)
         self.ui = Ui_window()
-	self.ui.setupUi(self)
-	self.load_datos()
-	#self.setup_search_bar()
-	self.load_ciudades()
+        self.ui.setupUi(self)
+        self.load_datos()
+        #self.setup_search_bar()
+        self.load_ciudades()
         self.set_signals()
-	self.render_table()
-	self.show()
+        self.render_table()
+        self.show()
              
     def render_table(self):
+        """funcion que define las funciones de la tabla"""
         #Indica que el usuario al hacer click en la grilla seleccionará
         #una fila completa y no una celda
         self.ui.table_win.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
@@ -38,31 +41,35 @@ class Locales(QtGui.QMainWindow):
         self.ui.table_win.setSortingEnabled(True)
 
     def conectar_tabla_empleados(self):
-	model = self.ui.table_win.model()
-	index = self.ui.table_win.currentIndex()
-	id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+        """funcion que conecta la grilla principal con la tabla de empleados"""
+        model = self.ui.table_win.model()
+        index = self.ui.table_win.currentIndex()
+        id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
         form = empleados_grid.Form(self,id_local)
         form.setWindowTitle("Empleados por local")
-	form.exec_()
+        form.exec_()
 
    
     def set_signals(self):
+        """función que establece las señales con los diferentes botones, el filtro de texto y el combobox"""
         self.ui.filtro.textChanged.connect(self.textChanged)
-	self.ui.crear_btn.clicked.connect(self.pressAdd)
-	self.ui.eliminar_btn.clicked.connect(self.pressDelete)
-	self.ui.edit_button.clicked.connect(self.pressEdit)
-	self.ui.combo.activated[str].connect(self.load_locales_por_ciudad)
-	self.ui.table_win.doubleClicked.connect(self.conectar_tabla_empleados)
+        self.ui.crear_btn.clicked.connect(self.pressAdd)
+        self.ui.eliminar_btn.clicked.connect(self.pressDelete)
+        self.ui.edit_button.clicked.connect(self.pressEdit)
+        self.ui.combo.activated[str].connect(self.load_locales_por_ciudad)
+        self.ui.table_win.doubleClicked.connect(self.conectar_tabla_empleados)
    
 
     def load_ciudades(self):
-         ciudades = controller_local.get_ciudades()
-         self.ui.combo.addItem("Todos", -1)
-         for ciudad in ciudades:
-             self.ui.combo.addItem(ciudad["nombre"], ciudad["id_ciudad"])
+        """funcion que define el combobox"""
+        ciudades = controller_local.get_ciudades()
+        self.ui.combo.addItem("Todos", -1)
+        for ciudad in ciudades:
+            self.ui.combo.addItem(ciudad["nombre"], ciudad["id_ciudad"])
 
 
     def load_locales_por_ciudad(self, index):
+        """función que carga los locales por ciudad al apretar el combobox"""
         id_ciudad = self.ui.combo.itemData(self.ui.combo.currentIndex())
         if id_ciudad == -1:
             ciudad = controller_local.get_locales()
@@ -71,84 +78,86 @@ class Locales(QtGui.QMainWindow):
         self.load_datos(ciudad)
 
     def setup_search_bar(self):
-        #agrega la caracteristica de autocompletacion
-	wordList = controller_local.get_names()
-	completer = QtGui.QCompleter(wordList, self)
-	completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
-	self.ui.filtro.setCompleter(completer)
+        """función que agrega la caracteristica de autocompletacion"""
+        wordList = controller_local.get_names()
+        completer = QtGui.QCompleter(wordList, self)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.ui.filtro.setCompleter(completer)
     
     
     #Completer para la barra de busqueda
     def update_search(self):
-            	wordList = controller_local.get_names()
-		completer = QtGui.QCompleter(wordList, self)
-		self.ui.filtro.setCompleter(completer)
+                wordList = controller_local.get_names()
+                completer = QtGui.QCompleter(wordList, self)
+                self.ui.filtro.setCompleter(completer)
 
 
     def textChanged(self,string):
-		#filtra la tabla con la palabra ingresada en la barra de busqueda
-		self.s = [string + '%']
-		self.load_datos() #recarga tabla
+        """función que filtra la tabla con la palabra ingresada en la barra de busqueda"""
+        self.s = [string + '%']
+        self.load_datos() #recarga tabla
 
 
     
 
     def pressAdd(self):
-		#Abre la ventana "Form"
-		form = view_local_form.Form(self)
-		form.setWindowTitle("Agregar un Local")
+        """funcion que abre y hace funcionar la ventana de agregar locales mediante el boton PushAceptar"""
+        #Abre la ventana "Form"
+        form = view_local_form.Form(self)
+        form.setWindowTitle("Agregar un Local")
 
-		#Enlaza el boton con el metodo agregar (add).
-		form.ui.PushAceptar.clicked.connect(form.add)
+        #Enlaza el boton con el metodo agregar (add).
+        form.ui.PushAceptar.clicked.connect(form.add)
 
-		form.rejected.connect(self.load_datos)
-		form.exec_()
+        form.rejected.connect(self.load_datos)
+        form.exec_()
 
 
     def load_datos(self, locales=None):
-        	
-		#if(self.first_time):
-		#	locales = controller_local.get_locales()
-		#	self.first_time = False
-		
-		if locales is None:
-		        		        	
-			#locales = controller_local.search(self.s[0],self.ciudad_actual)
-			locales = controller_local.get_locales()
-        	
-        	self.model = QtGui.QStandardItemModel(len(locales), 3)
-		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
-        	self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
-        	self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Direccion"))
-		self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ciudad"))
+        """función que carga todos los locales en la ventana principal"""   
+        #if(self.first_time):
+        #   locales = controller_local.get_locales()
+        #   self.first_time = False
+        
+        if locales is None:
+                                    
+            #locales = controller_local.search(self.s[0],self.ciudad_actual)
+            locales = controller_local.get_locales()
+            
+            self.model = QtGui.QStandardItemModel(len(locales), 3)
+            self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+            self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
+            self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Direccion"))
+            self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ciudad"))
 
-        	r = 0
-        	for row in locales:
-			index = self.model.index(r, 0, QtCore.QModelIndex()); 
-            		self.model.setData(index, row['id_local'])
-            		index = self.model.index(r, 1, QtCore.QModelIndex()); 
-            		self.model.setData(index, row['nombre'])
-            		index = self.model.index(r, 2, QtCore.QModelIndex()); 
-            		self.model.setData(index, row['direccion'])
-            		index = self.model.index(r, 3, QtCore.QModelIndex()); 
-           		self.model.setData(index, row['ciudad'])
-           		r = r+1
+            r = 0
+            for row in locales:
+                    index = self.model.index(r, 0, QtCore.QModelIndex()); 
+                    self.model.setData(index, row['id_local'])
+                    index = self.model.index(r, 1, QtCore.QModelIndex()); 
+                    self.model.setData(index, row['nombre'])
+                    index = self.model.index(r, 2, QtCore.QModelIndex()); 
+                    self.model.setData(index, row['direccion'])
+                    index = self.model.index(r, 3, QtCore.QModelIndex()); 
+                    self.model.setData(index, row['ciudad'])
+                    r = r+1
 
-                self.ui.table_win.setModel(self.model)
-		
-		self.ui.table_win.setColumnWidth(0, 120)
-		self.ui.table_win.setColumnWidth(1, 250)
-		self.ui.table_win.setColumnWidth(2, 250)
-		self.ui.table_win.setColumnWidth(3, 250)
-		self.ui.table_win.hideColumn(0)
+                    self.ui.table_win.setModel(self.model)
+        
+        self.ui.table_win.setColumnWidth(0, 120)
+        self.ui.table_win.setColumnWidth(1, 250)
+        self.ui.table_win.setColumnWidth(2, 250)
+        self.ui.table_win.setColumnWidth(3, 250)
+        self.ui.table_win.hideColumn(0)
 
-		self.update_search()
+        self.update_search()
 
   
     def pressDelete(self):
+        """función que borra los locales"""
         model = self.ui.table_win.model()
         index = self.ui.table_win.currentIndex()
-	
+    
         if index.row() == -1: #No se ha seleccionado una fila
             self.errorMessageDialog = QtGui.QErrorMessage(self)
             self.errorMessageDialog.showMessage("Debe seleccionar una fila")
@@ -170,33 +179,34 @@ class Locales(QtGui.QMainWindow):
 
 
     def pressEdit(self):
-		model = self.ui.table_win.model()
-		index = self.ui.table_win.currentIndex()
-		if index.row() == -1: #No se ha seleccionado una fila
-			#Notificacion si no se ha seleccionado una fila
-			errorMessageBox = QtGui.QMessageBox.warning(self,"Error","Debe seleccionar una fila")
-			return False
-		else:
-			#Abre la ventana "Form"
-			form = view_local_form.Form(self)
-			form.setWindowTitle("Editar un registro")
+        """función que edita los locales"""
+        model = self.ui.table_win.model()
+        index = self.ui.table_win.currentIndex()
+        if index.row() == -1: #No se ha seleccionado una fila
+            #Notificacion si no se ha seleccionado una fila
+            errorMessageBox = QtGui.QMessageBox.warning(self,"Error","Debe seleccionar una fila")
+            return False
+        else:
+            #Abre la ventana "Form"
+            form = view_local_form.Form(self)
+            form.setWindowTitle("Editar un registro")
 
-		#Obtiene los datos de la linea seleccionada
-		nombre = model.index(index.row(), 0, QtCore.QModelIndex()).data()
-		direccion = model.index(index.row(), 1, QtCore.QModelIndex()).data()
-		ciudad = model.index(index.row(), 2, QtCore.QModelIndex()).data()
-		
-		#Enlaza el boton con el metodo editar (edit).
-		form.ui.PushAceptar.clicked.connect(view_local_form.edit)
-		form.ui.PushAceptar.setText("Editar")
+        #Obtiene los datos de la linea seleccionada
+        nombre = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+        direccion = model.index(index.row(), 1, QtCore.QModelIndex()).data()
+        ciudad = model.index(index.row(), 2, QtCore.QModelIndex()).data()
+        
+        #Enlaza el boton con el metodo editar (edit).
+        form.ui.PushAceptar.clicked.connect(view_local_form.edit)
+        form.ui.PushAceptar.setText("Editar")
 
-		#Los inserta en los cuadros
-		form.ui.nombre_label.setText(str(nombre))
-		form.ui.direccion_label.setText(str(direccion))
-		form.ui.ciudad_label.setText(int(ciudad))
+        #Los inserta en los cuadros
+        form.ui.nombre_label.setText(str(nombre))
+        form.ui.direccion_label.setText(str(direccion))
+        form.ui.ciudad_label.setText(int(ciudad))
 
-		form.rejected.connect(self.load_datos)
-		form.exec_()
+        form.rejected.connect(self.load_datos)
+        form.exec_()
 
 
 
@@ -206,6 +216,6 @@ def run():
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    	run()
+        run()
 
 

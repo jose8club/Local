@@ -4,11 +4,15 @@
 import sqlite3
 
 def connect():
+    """funcion que conecta a la base de datos"""
+
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     return con
 
 def get_regiones():
+    """funcion que obtiene las regiones"""
+    
     con = connect()
     c = con.cursor()
     query = """SELECT * FROM region"""
@@ -32,6 +36,8 @@ def get_ciudadess():
     return ciudades
 
 def get_ciudades():
+    """funcion que obtiene las ciudades"""
+
     con = connect()
     c = con.cursor()
     query = """SELECT id_ciudad, nombre FROM ciudad"""
@@ -42,7 +48,7 @@ def get_ciudades():
 
 
 def get_names():
-    #devuelve un arreglo con los nombres de los locales
+    """devuelve un arreglo con los nombres de los locales"""
     con = connect()
     c = con.cursor()
     query = "SELECT nombre FROM local"
@@ -64,6 +70,7 @@ def get_localess():
     return locales
 
 def get_locales():
+    """funcion que obtiene los locales"""
     con = connect()
     c = con.cursor()
     query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
@@ -74,6 +81,7 @@ def get_locales():
     return locales
 
 def get_locales_by_ciudad(id_ciudad):
+    """funcion que obtiene los locales por ciudad"""
     con = connect()
     c = con.cursor()
     query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
@@ -84,7 +92,8 @@ def get_locales_by_ciudad(id_ciudad):
     con.close()
     return locales
 
-def buscar_por_ciudad(text):  
+def buscar_por_ciudad(text):
+    """funcion que obtiene la ciudad por su nombre"""
     con = connect()
     c = con.cursor()
     query = "SELECT id_ciudad FROM ciudad WHERE nombre=?"
@@ -99,6 +108,7 @@ def buscar_por_ciudad(text):
 
 
 def get_empleados_by_local(id_local):
+    """funcion que obtiene los empleados por cada local"""
     con = connect()
     c = con.cursor()
     query = """SELECT a.rut, a.nombre, a.cargo, a.genero, a.sueldo, b.nombre as 'local'
@@ -110,6 +120,7 @@ def get_empleados_by_local(id_local):
     return empleados
 
 def delete_local(id_local):
+    """funcion que borra los locales por su id_local"""
     exito = False
     con = connect()
     c = con.cursor()
@@ -142,6 +153,7 @@ def add_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
 
 
 def add_local(nombre, direccion, fk_id_ciudad):
+    """funcion que agrega los locales"""
     success = False
     con = connect()
     c = con.cursor()
@@ -158,7 +170,8 @@ def add_local(nombre, direccion, fk_id_ciudad):
     return success
 
 def search(pre='*',mar='*'):
-    #devuelve las entradas en que los nombres comienzan con la variable 'pre' de ciudad 'mar'.
+    """funcion que obtiene los locales
+    devuelve las entradas en que los nombres comienzan con la variable 'pre' de ciudad 'mar'."""
     con = connect()
     c = con.cursor()
     if mar != '*':

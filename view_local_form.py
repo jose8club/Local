@@ -8,7 +8,9 @@ import controller_local
 from local2_ui import Ui_Form
 
 class Form(QtGui.QDialog):
+    """clase que crea la ventana de agregar locales"""
     def __init__(self, parent=None):
+        """constructor de la ventana de agregar locales"""
         QtGui.QDialog.__init__(self, parent)
         self.ui =  Ui_Form()
         self.ui.setupUi(self)
@@ -17,6 +19,7 @@ class Form(QtGui.QDialog):
     
 
     def add(self):
+        """función que se llama para agregar locales"""
         if self.ui.lineNombre.text() == "":
             msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el nombre Local.")
         elif self.ui.lineDireccion.text() == "":
@@ -35,5 +38,6 @@ class Form(QtGui.QDialog):
 
 
     def cancel(self):
+        """función para cancelar el agregar un local nuevo"""
         self.reject()
 
