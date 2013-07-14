@@ -4,6 +4,7 @@
 import sqlite3
 
 def connect():
+    """funcion que conecta a la base de datos"""
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     return con
@@ -43,6 +44,7 @@ def buscar_por_ciudad(text):
 
 
 def obtener_empleados_por_local(id_local):
+    """funcion que obtiene todos los empelados por local usando su id_local como identificador"""
     con = connect()
     c = con.cursor()
     query = """SELECT a.rut, a.nombre, a.cargo, a.genero, a.sueldo, b.nombre as 'local'
@@ -54,6 +56,7 @@ def obtener_empleados_por_local(id_local):
     return empleados
 
 def eliminar_local(id_local):
+    """función que elimina el local al ser señalado mediante su id_local"""
     exito = False
     con = connect()
     c = con.cursor()
@@ -69,6 +72,7 @@ def eliminar_local(id_local):
     return exito
 
 def agregar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
+    """función que permite agregar empleados mediante sus diferentes campos"""
     success = False
     con = connect()
     c = con.cursor()
@@ -85,6 +89,7 @@ def agregar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     return success
 
 def editar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
+    """función que permite editar los campos de los empleados"""
     success = False
     con = connect()
     c = con.cursor()
@@ -101,6 +106,7 @@ def editar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     return success
 
 def obtener_empleado_por_rut(rut):
+    """esta función permite obtener a los empleados mediante su rut"""
     con = connect()
     c = con.cursor()
     query = """SELECT rut, nombre, cargo, genero, sueldo
@@ -111,6 +117,7 @@ def obtener_empleado_por_rut(rut):
     return empleados
 
 def eliminar_empleado(rut):
+    """esta función permite eliminar a los empleados mediante su rut"""
     exito = False
     con = connect()
     c = con.cursor()
