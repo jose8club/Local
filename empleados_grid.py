@@ -9,7 +9,9 @@ import empleados_form
 #Importamos el constructor de la clase generada automáticamente
 from empleados_ui import Ui_Dialog
 class Form(QtGui.QDialog):
+	"""clase que crea la grilla de empleados de cada local"""
 	def __init__(self, parent=None, id_local=None):
+		"""constructor que abre la ventana que muestra los empleados"""
 		QtGui.QDialog.__init__(self, parent)
 		self.ui =  Ui_Dialog()
 		self.ui.setupUi(self)
@@ -19,12 +21,14 @@ class Form(QtGui.QDialog):
 		self.show()
 
 	def conectar(self):
+		"""función que conecta la grilla de empleados con la forma de ingreso de empleados"""
 		form = empleados_form.Form(self)
 		form.setWindowTitle("Agregar un empleado")
 		form.ui.add_btn.clicked.connect(form.add)
 		form.exec_()
 
 	def datos(self, id_local):
+		"""función que muestra los empleados de un local en específico, usando su id_local"""
 		empleados = c.obtener_empleados_por_local(id_local)
 		#print empleados
 		#Creamos el modelo asociado a la tabla
@@ -63,6 +67,7 @@ class Form(QtGui.QDialog):
 
 
 	def eliminar(self):
+		"""función que elimina los empleados de cada local que solo pueden ser eliminados a través de la selección del registro a eliminar"""
 		model = self.ui.tableView.model()
 		index = self.ui.tableView.currentIndex()
 		if index.row() == -1: #No se ha seleccionado una fila
