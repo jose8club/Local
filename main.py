@@ -107,7 +107,7 @@ class Locales(QtGui.QMainWindow):
         form.setWindowTitle("Agregar un Local")
 
         #Enlaza el boton con el metodo agregar (add).
-        #form.ui.PushAceptar.clicked.connect(form.add)
+        form.ui.PushAceptar.clicked.connect(form.add)
 
         form.rejected.connect(self.load_datos)
         form.exec_()
@@ -139,9 +139,9 @@ class Locales(QtGui.QMainWindow):
                 r = r+1
 
         self.ui.table_win.setModel(self.model)
-        self.ui.table_win.setColumnWidth(0, 120)
-        self.ui.table_win.setColumnWidth(1, 250)
-        self.ui.table_win.setColumnWidth(2, 250)
+        self.ui.table_win.setColumnWidth(0, 200)
+        self.ui.table_win.setColumnWidth(1, 345)
+        self.ui.table_win.setColumnWidth(2, 199)
         #self.ui.table_win.setColumnWidth(3, 250)
         #self.ui.table_win.hideColumn(0)
         self.update_search()
