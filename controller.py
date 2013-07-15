@@ -4,7 +4,6 @@
 import sqlite3
 
 def connect():
-    """funcion que conecta a la base de datos"""
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     return con
@@ -44,7 +43,6 @@ def buscar_por_ciudad(text):
 
 
 def obtener_empleados_por_local(id_local):
-    """funcion que obtiene todos los empelados por local usando su id_local como identificador"""
     con = connect()
     c = con.cursor()
     query = """SELECT a.rut, a.nombre, a.cargo, a.genero, a.sueldo, b.nombre as 'local'

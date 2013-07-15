@@ -9,9 +9,7 @@ import empleados_form
 #Importamos el constructor de la clase generada automáticamente
 from empleados_ui import Ui_Dialog
 class Form(QtGui.QDialog):
-	"""clase que crea la grilla de empleados de cada local"""
 	def __init__(self, parent=None, id_local=None):
-		"""constructor que abre la ventana que muestra los empleados"""
 		QtGui.QDialog.__init__(self, parent)
 		self.ui =  Ui_Dialog()
 		self.ui.setupUi(self)
