@@ -42,7 +42,7 @@ class Form(QtGui.QDialog):
 		self.ui.lineCiudad.text()!=""):
 		id_ciudad = c.obtener_id_ciudad(self.ui.lineCiudad.text())
 		if(id_ciudad!="null"):
-			res = c.editar_local(id_local,self.ui.lineNombre.text(),self.ui.lineDireccion.text(),id_ciudad) 
+			res = c.editar_local(self.ui.idlocal.text(),self.ui.lineNombre.text(),self.ui.lineDireccion.text(),id_ciudad) 
 			if res:
 			    msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
 			    self.reject()
