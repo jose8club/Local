@@ -7,14 +7,9 @@ import controller
 #Importamos el constructor de la clase generada automáticamente
 from form import Ui_Form
 class Form(QtGui.QDialog):
-<<<<<<< HEAD
     """clase que crea la ventana de ingreso de empleados"""
     def __init__(self, parent=None, rut=None):
         """constructor que crea la ventana de ingreso de empleados"""
-=======
-    
-    def __init__(self, parent=None):
->>>>>>> cfeae8411eaab071f8161139976f70fe9df76134
         QtGui.QDialog.__init__(self, parent)
         self.ui =  Ui_Form()
         self.ui.setupUi(self)
@@ -42,11 +37,8 @@ class Form(QtGui.QDialog):
 	self.show()
 
     def add(self):
-<<<<<<< HEAD
         """función que crea el ingreso de empleados"""
 	genero = self.ui.comboBox.itemData(self.ui.comboBox.currentIndex())	
-=======
->>>>>>> cfeae8411eaab071f8161139976f70fe9df76134
         if self.ui.rut_bar.text() == "":
             msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el rut del empleado.")
         elif self.ui.nombre_bar.text() == "":
@@ -79,6 +71,7 @@ class Form(QtGui.QDialog):
 
   
     def cancel(self):
+        """ventana que permite la cancelación de la ventana"""
         self.reject()
 
 if __name__ == "__main__":
