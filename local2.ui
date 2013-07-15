@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>354</width>
-    <height>289</height>
+    <width>347</width>
+    <height>238</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLineEdit" name="lineNombre">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>60</y>
+     <x>110</x>
+     <y>30</y>
      <width>191</width>
      <height>27</height>
     </rect>
@@ -26,8 +26,8 @@
   <widget class="QLabel" name="nombre_label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>60</y>
+     <x>20</x>
+     <y>30</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -39,8 +39,8 @@
   <widget class="QLineEdit" name="lineDireccion">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>100</y>
+     <x>110</x>
+     <y>70</y>
      <width>191</width>
      <height>27</height>
     </rect>
@@ -49,8 +49,8 @@
   <widget class="QLabel" name="direccion_label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>100</y>
+     <x>20</x>
+     <y>70</y>
      <width>81</width>
      <height>21</height>
     </rect>
@@ -62,8 +62,8 @@
   <widget class="QLineEdit" name="lineCiudad">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>140</y>
+     <x>110</x>
+     <y>110</y>
      <width>191</width>
      <height>27</height>
     </rect>
@@ -72,8 +72,8 @@
   <widget class="QLabel" name="ciudad_label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>140</y>
+     <x>20</x>
+     <y>110</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -85,21 +85,21 @@
   <widget class="QPushButton" name="PushAceptar">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>190</y>
+     <x>40</x>
+     <y>180</y>
      <width>111</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Agregar</string>
+    <string>Aceptar</string>
    </property>
   </widget>
   <widget class="QPushButton" name="PushSalir">
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>190</y>
+     <y>180</y>
      <width>111</width>
      <height>27</height>
     </rect>

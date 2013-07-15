@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'form.ui'
 #
-# Created: Sat Jun 29 22:14:34 2013
-#      by: pyside-uic 0.2.13 running on PySide 1.1.2
+# Created: Mon Jul 15 05:43:46 2013
+#      by: pyside-uic 0.2.13 running on PySide 1.1.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -31,9 +31,6 @@ class Ui_Form(object):
         self.cargo_label = QtGui.QLabel(Form)
         self.cargo_label.setGeometry(QtCore.QRect(10, 100, 81, 21))
         self.cargo_label.setObjectName("cargo_label")
-        self.genero_bar = QtGui.QLineEdit(Form)
-        self.genero_bar.setGeometry(QtCore.QRect(100, 140, 191, 27))
-        self.genero_bar.setObjectName("genero_bar")
         self.genero_label = QtGui.QLabel(Form)
         self.genero_label.setGeometry(QtCore.QRect(10, 140, 71, 21))
         self.genero_label.setObjectName("genero_label")
@@ -53,8 +50,12 @@ class Ui_Form(object):
         self.label.setGeometry(QtCore.QRect(10, 220, 66, 17))
         self.label.setObjectName("label")
         self.local_bar = QtGui.QLineEdit(Form)
+        self.local_bar.setEnabled(False)
         self.local_bar.setGeometry(QtCore.QRect(100, 220, 191, 27))
         self.local_bar.setObjectName("local_bar")
+        self.comboBox = QtGui.QComboBox(Form)
+        self.comboBox.setGeometry(QtCore.QRect(100, 140, 131, 27))
+        self.comboBox.setObjectName("comboBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

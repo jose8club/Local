@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
-    <height>506</height>
+    <width>945</width>
+    <height>548</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string notr="true">MainWindow</string>
   </property>
   <widget class="QWidget" name="widget">
    <widget class="QComboBox" name="combo">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>780</x>
       <y>40</y>
       <width>151</width>
       <height>27</height>
@@ -27,7 +27,7 @@
    <widget class="QLabel" name="local_label">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>600</x>
       <y>40</y>
       <width>161</width>
       <height>31</height>
@@ -42,13 +42,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Seleccione un Local</string>
+     <string>Seleccione una Ciudad</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="filtro">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>120</x>
       <y>40</y>
       <width>441</width>
       <height>27</height>
@@ -80,21 +80,33 @@
     </property>
    </widget>
    <widget class="QTableView" name="table_win">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>80</y>
-      <width>771</width>
+      <width>935</width>
       <height>361</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
    </widget>
    <widget class="QPushButton" name="crear_btn">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>10</y>
-      <width>181</width>
+      <x>10</x>
+      <y>460</y>
+      <width>111</width>
       <height>27</height>
      </rect>
     </property>
@@ -105,8 +117,8 @@
    <widget class="QPushButton" name="eliminar_btn">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>10</y>
+      <x>830</x>
+      <y>460</y>
       <width>101</width>
       <height>27</height>
      </rect>
@@ -118,8 +130,8 @@
    <widget class="QPushButton" name="edit_button">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>10</y>
+      <x>180</x>
+      <y>460</y>
       <width>101</width>
       <height>27</height>
      </rect>
@@ -128,13 +140,26 @@
      <string>Editar</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>45</y>
+      <width>111</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nombre Local</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>795</width>
+     <width>945</width>
      <height>25</height>
     </rect>
    </property>

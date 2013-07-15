@@ -5,6 +5,7 @@ import sys
 import controller_local
 import view_local_form
 import empleados_grid
+import controller as c
 from PySide import QtGui, QtCore
 from main2_ui import Ui_window
 
@@ -70,21 +71,23 @@ class Locales(QtGui.QMainWindow):
 
     def load_locales_por_ciudad(self, index):
         """función que carga los locales por ciudad al apretar el combobox"""
-        id_ciudad = self.ui.combo.itemData(self.ui.combo.currentIndex())
+	id_ciudad = self.ui.combo.itemData(self.ui.combo.currentIndex())
         if id_ciudad == -1:
             ciudad = controller_local.get_locales()
         else:
-            ciudad = controller_local.get_locales_by_ciudad(id_ciudad)
+            ciudad = c.obtener_locales_por_ciudad(id_ciudad)
         self.load_datos(ciudad)
 
     def setup_search_bar(self):
         """función que agrega la caracteristica de autocompletacion"""
-        wordList = controller_local.get_names()
-        completer = QtGui.QCompleter(wordList, self)
+    	word = self.ui.filtro.text()
+        locales = self.update_search()
+        self.load_datos(locales)
+   	completer = QtGui.QCompleter(locales, self)
         completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        completer.setCompletionMode(QtGui.QCompleter.InlineCompletion)
         self.ui.filtro.setCompleter(completer)
-    
-    
+
     #Completer para la barra de busqueda
     def update_search(self):
                 wordList = controller_local.get_names()
@@ -116,34 +119,38 @@ class Locales(QtGui.QMainWindow):
     def load_datos(self, locales=None):
         """función que carga todos los locales en la ventana principal"""   
                 
-        if locales is None:
-                                    
+        if locales is None:                                    
             locales = controller_local.get_locales()
             
-        self.model = QtGui.QStandardItemModel(len(locales), 3)
-        #self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
-        self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Nombre"))
-        self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Direccion"))
-        self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Ciudad"))
+        self.model = QtGui.QStandardItemModel(len(locales), 5)
+        self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+        self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
+        self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Direccion"))
+        self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ciudad"))
+	self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"N° empleados"))
 
         r = 0
         for row in locales:
-                #index = self.model.index(r, 0, QtCore.QModelIndex()); 
-                #self.model.setData(index, row['id_local'])
                 index = self.model.index(r, 0, QtCore.QModelIndex()); 
-                self.model.setData(index, row['nombre'])
+                self.model.setData(index, row['id_local'])
                 index = self.model.index(r, 1, QtCore.QModelIndex()); 
-                self.model.setData(index, row['direccion'])
+                self.model.setData(index, row['nombre'])
                 index = self.model.index(r, 2, QtCore.QModelIndex()); 
+                self.model.setData(index, row['direccion'])
+                index = self.model.index(r, 3, QtCore.QModelIndex()); 
                 self.model.setData(index, row['ciudad'])
+		index = self.model.index(r, 4, QtCore.QModelIndex()); 
+		id_local = row['id_local']
+		empleados = c.obtener_empleados_por_local(id_local)
+                self.model.setData(index, len(empleados));
                 r = r+1
-
+	
         self.ui.table_win.setModel(self.model)
-        self.ui.table_win.setColumnWidth(0, 200)
         self.ui.table_win.setColumnWidth(1, 345)
         self.ui.table_win.setColumnWidth(2, 199)
-        #self.ui.table_win.setColumnWidth(3, 250)
-        #self.ui.table_win.hideColumn(0)
+        self.ui.table_win.setColumnWidth(3, 250)
+	self.ui.table_win.setColumnWidth(4, 100)
+        self.ui.table_win.hideColumn(0)
         self.update_search()
 
   
@@ -158,9 +165,9 @@ class Locales(QtGui.QMainWindow):
             return False
         else:
             #Obtenemos el id_local que es la primary key en la base de datos
-            id_ciudad = model.index(index.row(), 2, QtCore.QModelIndex()).data()
-            id_local = controller_local.get_locales_by_ciudad(id_ciudad)
-            if (controller_local.delete_local(id_local)):
+            index = self.ui.table_win.currentIndex()
+       	    id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+            if (c.eliminar_local(id_local)):
                 self.load_datos()
                 msgBox = QtGui.QMessageBox()
                 msgBox.setText("EL registro fue eliminado.")
@@ -170,7 +177,6 @@ class Locales(QtGui.QMainWindow):
                 self.ui.errorMessageDialog = QtGui.QErrorMessage(self)
                 self.ui.errorMessageDialog.showMessage("Error al eliminar")
                 return False
-
 
     def pressEdit(self):
         """función que edita los locales"""
@@ -186,22 +192,20 @@ class Locales(QtGui.QMainWindow):
             form.setWindowTitle("Editar un Local")
 
         #Obtiene los datos de la linea seleccionada
-        nombre = model.index(index.row(), 0, QtCore.QModelIndex()).data()
-        direccion = model.index(index.row(), 1, QtCore.QModelIndex()).data()
-        ciudad = model.index(index.row(), 2, QtCore.QModelIndex()).data()
+        id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+        direccion = model.index(index.row(), 2, QtCore.QModelIndex()).data()
+        ciudad = model.index(index.row(), 3, QtCore.QModelIndex()).data()
         
         #Enlaza el boton con el metodo editar (edit).
-        form.ui.PushAceptar.clicked.connect(view_local_form.edit)
         form.ui.PushAceptar.setText("Editar")
 
         #Los inserta en los cuadros
-        form.ui.nombre_label.setText(str(nombre))
-        form.ui.direccion_label.setText(str(direccion))
-        form.ui.ciudad_label.setText(int(ciudad))
-
+	form.ui.lineNombre.setText(c.obtener_nombre_local(id_local)[0][0])
+	form.ui.lineDireccion.setText(direccion)        
+	form.ui.lineCiudad.setText(ciudad)
+        
         form.rejected.connect(self.load_datos)
-        form.exec_()
-
+        #form.exec_()
 
 
 def run():

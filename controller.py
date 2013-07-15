@@ -24,7 +24,7 @@ def obtener_locales_por_ciudad(id_ciudad):
     query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
             FROM local a, ciudad b WHERE a.fk_id_ciudad = b.id_ciudad
             AND a.fk_id_ciudad = ?"""
-    result = c.execute(query, [id_marca])
+    result = c.execute(query, [id_ciudad])
     locales = result.fetchall()
     con.close()
     return locales
@@ -54,6 +54,23 @@ def obtener_empleados_por_local(id_local):
     empleados = result.fetchall()
     con.close()
     return empleados
+
+def editar_local(id_local, nombre,direccion,fk_id_ciudad):
+    """función que permite editar los campos de los locales"""
+    success = False
+    con = connect()
+    c = con.cursor()
+    values = [nombre,direccion,fk_id_ciudad,id_local]
+    query = "UPDATE local SET nombre = ?, direccion = ?, fk_id_ciudad = ? WHERE id_local = ?"
+    try:
+        result = c.execute(query, values)
+        success = True
+        con.commit()
+    except sqlite3.Error as e:
+        success = False
+        print "Error: ", e.args[0]
+    con.close()
+    return success
 
 def eliminar_local(id_local):
     """función que elimina el local al ser señalado mediante su id_local"""
@@ -88,13 +105,13 @@ def agregar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
     con.close()
     return success
 
-def editar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):
+def editar_empleado(rut, nombre, cargo, genero, sueldo):
     """función que permite editar los campos de los empleados"""
     success = False
     con = connect()
     c = con.cursor()
-    values = [nombre, cargo, genero, sueldo,fk_id_local, rut]
-    query = "UPDATE empleado SET nombre = ?, cargo = ?, genero = ?, sueldo = ?, fk_id_local = ? WHERE rut = ?"
+    values = [nombre, cargo, genero, sueldo,rut]
+    query = "UPDATE empleado SET nombre = ?, cargo = ?, genero = ?, sueldo = ? WHERE rut = ?"
     try:
         result = c.execute(query, values)
         success = True
@@ -109,7 +126,7 @@ def obtener_empleado_por_rut(rut):
     """esta función permite obtener a los empleados mediante su rut"""
     con = connect()
     c = con.cursor()
-    query = """SELECT rut, nombre, cargo, genero, sueldo
+    query = """SELECT rut, nombre, cargo, genero, sueldo,fk_id_local
             FROM empleado WHERE rut = ?"""
     result = c.execute(query, [rut])
     empleados = result.fetchall()
@@ -132,12 +149,12 @@ def eliminar_empleado(rut):
     con.close()
     return exito
 
-def agregar_locales(nombre, direccion, fk_id_ciudad):
+def agregar_local(nombre, direccion, fk_id_ciudad):
     success = False
     con = connect()
     c = con.cursor()
-    values = [nombre, direccion,fk_id_local]
-    query = "INSERT INTO local (nombre, direccion,fk_id_ciudad) VALUES(?,?,?)"
+    values = [nombre, direccion, fk_id_ciudad]
+    query = "INSERT INTO local(nombre, direccion, fk_id_ciudad) VALUES(?,?,?)"
     try:
         result = c.execute(query, values)
         success = True
@@ -147,3 +164,28 @@ def agregar_locales(nombre, direccion, fk_id_ciudad):
         print "Error: ", e.args[0]
     con.close()
     return success
+
+def obtener_nombre_local(id_local):
+    con = connect()
+    c = con.cursor()
+    query = """SELECT nombre FROM local WHERE id_local = ?"""
+    result = c.execute(query, [id_local])
+    nombre = result.fetchall()
+    con.close()
+    return nombre
+
+def obtener_id_ciudad(nombre):
+    con = connect()
+    c = con.cursor()
+    exito = False
+    query = """SELECT id_ciudad FROM ciudad WHERE nombre = ? COLLATE NOCASE"""
+    result = c.execute(query, [nombre])
+    id_ciudad = result.fetchall()
+    if len(id_ciudad)>0:
+	id_ciudad = id_ciudad[0][0]
+    else:
+        id_ciudad = "null"
+    con.close()
+    return id_ciudad
+
+

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'empleados.ui'
 #
-# Created: Sun Jul  7 22:31:05 2013
-#      by: pyside-uic 0.2.13 running on PySide 1.1.2
+# Created: Mon Jul 15 05:09:14 2013
+#      by: pyside-uic 0.2.13 running on PySide 1.1.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -33,6 +33,10 @@ class Ui_Dialog(object):
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.tableView = QtGui.QTableView(self.verticalLayoutWidget)
+        self.tableView.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.tableView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+        self.tableView.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.tableView.setTextElideMode(QtCore.Qt.ElideRight)
         self.tableView.setObjectName("tableView")
         self.horizontalLayout_3.addWidget(self.tableView)
         self.verticalLayout.addLayout(self.horizontalLayout_3)

@@ -16,17 +16,34 @@ class Form(QtGui.QDialog):
 		self.ui =  Ui_Dialog()
 		self.ui.setupUi(self)
 		self.ui.agregar.clicked.connect(self.conectar)
+		self.ui.aceptar.clicked.connect(self.cancel)
 		self.ui.eliminar.clicked.connect(self.eliminar)
+		self.ui.tableView.doubleClicked.connect(self.editar)
 		self.datos(id_local)
 		self.show()
 
 	def conectar(self):
 		"""función que conecta la grilla de empleados con la forma de ingreso de empleados"""
+		model = self.ui.tableView.model()
+		index = self.ui.tableView.currentIndex()
+		id_local = model.index(index.row(), 5, QtCore.QModelIndex()).data()	
 		form = empleados_form.Form(self)
+		#form.rejected.connect(self.datos(id_local))
 		form.setWindowTitle("Agregar un empleado")
 		form.ui.add_btn.clicked.connect(form.add)
 		form.exec_()
+	
 
+	def editar(self):
+		"""función que conecta la grilla de empleados con la forma de ingreso de empleados"""
+		model = self.ui.tableView.model()
+		index = self.ui.tableView.currentIndex()
+		rut = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+		id_local = model.index(index.row(), 5, QtCore.QModelIndex()).data()
+		form = empleados_form.Form(self,rut)
+		form.setWindowTitle("Editar Empleado")
+		form.exec_()	
+		#self.datos(c.obtener_id(id_local))
 	def datos(self, id_local):
 		"""función que muestra los empleados de un local en específico, usando su id_local"""
 		empleados = c.obtener_empleados_por_local(id_local)
@@ -88,7 +105,9 @@ class Form(QtGui.QDialog):
 				self.ui.errorMessageDialog.showMessage("Error al eliminar el registro del empleado de este local")
 				return False
 
-
+	def cancel(self):
+		"""ventana que permite la cancelación de la ventana"""
+		self.reject()
 
 if __name__ == "__main__":
 	app = QtGui.QApplication(sys.argv)

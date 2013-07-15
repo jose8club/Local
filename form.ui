@@ -82,16 +82,6 @@
     <string>Cargo</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="genero_bar">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>140</y>
-     <width>191</width>
-     <height>27</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="genero_label">
    <property name="geometry">
     <rect>
@@ -168,11 +158,24 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="local_bar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>100</x>
      <y>220</y>
      <width>191</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>140</y>
+     <width>131</width>
      <height>27</height>
     </rect>
    </property>
