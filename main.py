@@ -24,7 +24,7 @@ class Locales(QtGui.QMainWindow):
         self.ui = Ui_window()
         self.ui.setupUi(self)
         self.load_datos()
-        #self.setup_search_bar()
+        self.setup_search_bar()
         self.load_ciudades()
         self.set_signals()
         self.render_table()
@@ -107,7 +107,7 @@ class Locales(QtGui.QMainWindow):
         form.setWindowTitle("Agregar un Local")
 
         #Enlaza el boton con el metodo agregar (add).
-        form.ui.PushAceptar.clicked.connect(form.add)
+        #form.ui.PushAceptar.clicked.connect(form.add)
 
         form.rejected.connect(self.load_datos)
         form.exec_()
@@ -115,41 +115,35 @@ class Locales(QtGui.QMainWindow):
 
     def load_datos(self, locales=None):
         """función que carga todos los locales en la ventana principal"""   
-        #if(self.first_time):
-        #   locales = controller_local.get_locales()
-        #   self.first_time = False
-        
+                
         if locales is None:
                                     
-            #locales = controller_local.search(self.s[0],self.ciudad_actual)
             locales = controller_local.get_locales()
             
-            self.model = QtGui.QStandardItemModel(len(locales), 3)
-            self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
-            self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
-            self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Direccion"))
-            self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ciudad"))
+        self.model = QtGui.QStandardItemModel(len(locales), 3)
+        #self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
+        self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Nombre"))
+        self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Direccion"))
+        self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Ciudad"))
 
-            r = 0
-            for row in locales:
-                    index = self.model.index(r, 0, QtCore.QModelIndex()); 
-                    self.model.setData(index, row['id_local'])
-                    index = self.model.index(r, 1, QtCore.QModelIndex()); 
-                    self.model.setData(index, row['nombre'])
-                    index = self.model.index(r, 2, QtCore.QModelIndex()); 
-                    self.model.setData(index, row['direccion'])
-                    index = self.model.index(r, 3, QtCore.QModelIndex()); 
-                    self.model.setData(index, row['ciudad'])
-                    r = r+1
+        r = 0
+        for row in locales:
+                #index = self.model.index(r, 0, QtCore.QModelIndex()); 
+                #self.model.setData(index, row['id_local'])
+                index = self.model.index(r, 0, QtCore.QModelIndex()); 
+                self.model.setData(index, row['nombre'])
+                index = self.model.index(r, 1, QtCore.QModelIndex()); 
+                self.model.setData(index, row['direccion'])
+                index = self.model.index(r, 2, QtCore.QModelIndex()); 
+                self.model.setData(index, row['ciudad'])
+                r = r+1
 
-                    self.ui.table_win.setModel(self.model)
-        
+        self.ui.table_win.setModel(self.model)
         self.ui.table_win.setColumnWidth(0, 120)
         self.ui.table_win.setColumnWidth(1, 250)
         self.ui.table_win.setColumnWidth(2, 250)
-        self.ui.table_win.setColumnWidth(3, 250)
-        self.ui.table_win.hideColumn(0)
-
+        #self.ui.table_win.setColumnWidth(3, 250)
+        #self.ui.table_win.hideColumn(0)
         self.update_search()
 
   
@@ -189,7 +183,7 @@ class Locales(QtGui.QMainWindow):
         else:
             #Abre la ventana "Form"
             form = view_local_form.Form(self)
-            form.setWindowTitle("Editar un registro")
+            form.setWindowTitle("Editar un Local")
 
         #Obtiene los datos de la linea seleccionada
         nombre = model.index(index.row(), 0, QtCore.QModelIndex()).data()

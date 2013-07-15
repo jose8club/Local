@@ -63,7 +63,7 @@ def get_names():
 def get_localess():
     con = connect()
     c = con.cursor()
-    query = """SELECT nombre,direccion,fk_id_ciudad FROM local"""
+    query = """SELECT id_local,nombre,direccion,fk_id_ciudad FROM local"""
     result = c.execute(query)
     locales = result.fetchall()
     con.close()
@@ -84,7 +84,7 @@ def get_locales_by_ciudad(id_ciudad):
     """funcion que obtiene los locales por ciudad"""
     con = connect()
     c = con.cursor()
-    query = """SELECT a.id_local, a.nombre, a.direccion, b.nombre as 'ciudad'
+    query = """SELECT a.nombre, a.direccion, b.nombre as 'ciudad'
             FROM local a, ciudad b WHERE a.fk_id_ciudad = b.id_ciudad
             AND a.fk_id_ciudad = ?"""
     result = c.execute(query, [id_ciudad])
