@@ -52,8 +52,20 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-controller_empleados">
-<span id="empleados"></span><h1>Empleados<a class="headerlink" href="#module-controller_empleados" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="empleados">
+<h1>Empleados<a class="headerlink" href="#empleados" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>controller.def obtener_empleados_por_local(id_local):</dt>
+<dd>obtiene los empleados pertenecientes al id_local que se entrega</dd>
+<dt>controller.def agregar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):</dt>
+<dd>agrega un nuevo empleado con sus atributos</dd>
+<dt>controller.def editar_empleado(rut, nombre, cargo, genero, sueldo):</dt>
+<dd>edita la informacion de un empleado existente, pero no se puede modificar el rut</dd>
+<dt>controller.def obtener_empleado_por_rut(rut):</dt>
+<dd>esta función permite obtener a los empleados mediante su rut</dd>
+<dt>controller.def eliminar_empleado(rut):</dt>
+<dd>esta función permite eliminar a los empleados mediante su rut</dd>
+</dl>
 </div>
 
 
