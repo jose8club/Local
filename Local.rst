@@ -3,5 +3,5 @@ Local
 
 
 
-.. automodule:: controller_locales
+.. automodule:: controller
    :members:
