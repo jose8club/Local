@@ -1,0 +1,8 @@
+Empleados
+===========
+
+
+
+.. automodule:: controller_empleados
+   :members:
+
