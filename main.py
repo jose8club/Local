@@ -195,7 +195,6 @@ class Locales(QtGui.QMainWindow):
         id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
         direccion = model.index(index.row(), 2, QtCore.QModelIndex()).data()
         ciudad = model.index(index.row(), 3, QtCore.QModelIndex()).data()
-        
         #Enlaza el boton con el metodo editar (edit).
         form.ui.PushAceptar.setText("Editar")
 
@@ -203,6 +202,7 @@ class Locales(QtGui.QMainWindow):
 	form.ui.lineNombre.setText(c.obtener_nombre_local(id_local)[0][0])
 	form.ui.lineDireccion.setText(direccion)        
 	form.ui.lineCiudad.setText(ciudad)
+	form.ui.idlocal.setText(str(id_local))
         
         form.rejected.connect(self.load_datos)
         #form.exec_()
