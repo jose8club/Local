@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'form.ui'
 #
-# Created: Mon Jul 15 05:43:46 2013
+# Created: Mon Jul 15 20:50:56 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(313, 300)
+        Form.resize(313, 272)
         self.rut_bar = QtGui.QLineEdit(Form)
         self.rut_bar.setGeometry(QtCore.QRect(100, 20, 191, 27))
         self.rut_bar.setObjectName("rut_bar")
@@ -41,21 +41,19 @@ class Ui_Form(object):
         self.sueldo_label.setGeometry(QtCore.QRect(10, 180, 71, 21))
         self.sueldo_label.setObjectName("sueldo_label")
         self.add_btn = QtGui.QPushButton(Form)
-        self.add_btn.setGeometry(QtCore.QRect(40, 260, 111, 27))
+        self.add_btn.setGeometry(QtCore.QRect(40, 230, 111, 27))
         self.add_btn.setObjectName("add_btn")
         self.cancel_btn = QtGui.QPushButton(Form)
-        self.cancel_btn.setGeometry(QtCore.QRect(160, 260, 111, 27))
+        self.cancel_btn.setGeometry(QtCore.QRect(170, 230, 111, 27))
         self.cancel_btn.setObjectName("cancel_btn")
-        self.label = QtGui.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(10, 220, 66, 17))
-        self.label.setObjectName("label")
-        self.local_bar = QtGui.QLineEdit(Form)
-        self.local_bar.setEnabled(False)
-        self.local_bar.setGeometry(QtCore.QRect(100, 220, 191, 27))
-        self.local_bar.setObjectName("local_bar")
         self.comboBox = QtGui.QComboBox(Form)
         self.comboBox.setGeometry(QtCore.QRect(100, 140, 131, 27))
         self.comboBox.setObjectName("comboBox")
+        self.local_bar = QtGui.QLabel(Form)
+        self.local_bar.setEnabled(False)
+        self.local_bar.setGeometry(QtCore.QRect(270, 0, 31, 20))
+        self.local_bar.setText("")
+        self.local_bar.setObjectName("local_bar")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -69,5 +67,4 @@ class Ui_Form(object):
         self.sueldo_label.setText(QtGui.QApplication.translate("Form", "Sueldo", None, QtGui.QApplication.UnicodeUTF8))
         self.add_btn.setText(QtGui.QApplication.translate("Form", "Agregar", None, QtGui.QApplication.UnicodeUTF8))
         self.cancel_btn.setText(QtGui.QApplication.translate("Form", "Cancelar", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("Form", "Local", None, QtGui.QApplication.UnicodeUTF8))
 

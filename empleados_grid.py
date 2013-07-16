@@ -9,14 +9,7 @@ import empleados_form
 #Importamos el constructor de la clase generada automáticamente
 from empleados_ui import Ui_Dialog
 class Form(QtGui.QDialog):
-	"""
-	Clase que crea la grilla que muestra a los empleados de cada local
-	"""
 	def __init__(self, parent=None, id_local=None):
-		"""
-		constructor de la ventana de construccion de la grilla de empleados
-		que depende de un id_local
-		"""
 		QtGui.QDialog.__init__(self, parent)
 		self.ui =  Ui_Dialog()
 		self.ui.setupUi(self)
@@ -24,17 +17,16 @@ class Form(QtGui.QDialog):
 		self.ui.aceptar.clicked.connect(self.cancel)
 		self.ui.eliminar.clicked.connect(self.eliminar)
 		self.ui.tableView.doubleClicked.connect(self.editar)
-		self.datos(id_local)
+		self.ui.idlocal.setText(str(id_local))
+		self.cargar_grid()
 		self.show()
 
 	def conectar(self):
-		"""función que conecta la grilla de empleados con la forma de ingreso de empleados"""
-		model = self.ui.tableView.model()
-		index = self.ui.tableView.currentIndex()
-		id_local = model.index(index.row(), 5, QtCore.QModelIndex()).data()	
+		"""función que conecta la grilla de empleados con la forma de ingreso de empleados"""	
 		form = empleados_form.Form(self)
-		#form.rejected.connect(self.datos(id_local))
 		form.setWindowTitle("Agregar un empleado")
+		form.rejected.connect(self.cargar_grid)	
+		form.ui.local_bar.setText(self.ui.idlocal.text())	
 		form.ui.add_btn.clicked.connect(form.add)
 		form.exec_()
 	
@@ -44,15 +36,15 @@ class Form(QtGui.QDialog):
 		model = self.ui.tableView.model()
 		index = self.ui.tableView.currentIndex()
 		rut = model.index(index.row(), 0, QtCore.QModelIndex()).data()
-		id_local = model.index(index.row(), 5, QtCore.QModelIndex()).data()
 		form = empleados_form.Form(self,rut)
+		form.ui.add_btn.clicked.connect(form.edit)
+		form.rejected.connect(self.cargar_grid)	
 		form.setWindowTitle("Editar Empleado")
 		form.exec_()	
-		#self.datos(c.obtener_id(id_local))
-	def datos(self, id_local):
+
+	def cargar_grid(self):
 		"""función que muestra los empleados de un local en específico, usando su id_local"""
-		empleados = c.obtener_empleados_por_local(id_local)
-		#print empleados
+		empleados = c.obtener_empleados_por_local(self.ui.idlocal.text())
 		#Creamos el modelo asociado a la tabla
 		self.model = QtGui.QStandardItemModel(len(empleados), 6)
 		self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
@@ -61,7 +53,6 @@ class Form(QtGui.QDialog):
 		self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Genero"))
 		self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Sueldo"))
 		self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"local"))
-
 		r = 0
 		for row in empleados:
 			#print row
@@ -93,14 +84,13 @@ class Form(QtGui.QDialog):
 		model = self.ui.tableView.model()
 		index = self.ui.tableView.currentIndex()
 		if index.row() == -1: #No se ha seleccionado una fila
-			self.ui.errorMessageDialog = QtGui.QErrorMessage(self)
-			self.ui.errorMessageDialog.showMessage("Debe seleccionar una fila")
+			msgBox = QtGui.QMessageBox.information(self,"Error","debe seleccionar una fila")
 			return False
 		else:
 			rut = model.index(index.row(), 0, QtCore.QModelIndex()).data()
 			id_local = model.index(index.row(), 5, QtCore.QModelIndex()).data()
 			if (c.eliminar_empleado(rut)):
-				self.datos(id_local)
+				self.cargar_grid()
 				msgBox = QtGui.QMessageBox()
 				msgBox.setText("EL empleado de este local fue eliminado.")
 				msgBox.exec_()

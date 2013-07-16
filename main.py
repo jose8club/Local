@@ -48,9 +48,9 @@ class Locales(QtGui.QMainWindow):
         id_local = model.index(index.row(), 0, QtCore.QModelIndex()).data()
         form = empleados_grid.Form(self,id_local)
         form.setWindowTitle("Empleados por local")
+	form.rejected.connect(self.load_datos)
         form.exec_()
-
-   
+	
     def set_signals(self):
         """función que establece las señales con los diferentes botones, el filtro de texto y el combobox"""
         self.ui.filtro.textChanged.connect(self.textChanged)
@@ -108,10 +108,8 @@ class Locales(QtGui.QMainWindow):
         #Abre la ventana "Form"
         form = view_local_form.Form(self)
         form.setWindowTitle("Agregar un Local")
-
         #Enlaza el boton con el metodo agregar (add).
         form.ui.PushAceptar.clicked.connect(form.add)
-
         form.rejected.connect(self.load_datos)
         form.exec_()
 
@@ -122,12 +120,14 @@ class Locales(QtGui.QMainWindow):
         if locales is None:                                    
             locales = controller_local.get_locales()
             
-        self.model = QtGui.QStandardItemModel(len(locales), 5)
+        self.model = QtGui.QStandardItemModel(len(locales), 7)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"id_local"))
         self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
         self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Direccion"))
         self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ciudad"))
 	self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"N° empleados"))
+	self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"hombres"))
+	self.model.setHorizontalHeaderItem(6, QtGui.QStandardItem(u"mujeres"))
 
         r = 0
         for row in locales:
@@ -140,16 +140,21 @@ class Locales(QtGui.QMainWindow):
                 index = self.model.index(r, 3, QtCore.QModelIndex()); 
                 self.model.setData(index, row['ciudad'])
 		index = self.model.index(r, 4, QtCore.QModelIndex()); 
-		id_local = row['id_local']
-		empleados = c.obtener_empleados_por_local(id_local)
+		empleados = c.obtener_empleados_por_local(row['id_local'])
                 self.model.setData(index, len(empleados));
+		index = self.model.index(r, 5, QtCore.QModelIndex()); 
+                self.model.setData(index, c.obtener_hombres(row['id_local']))
+		index = self.model.index(r, 6, QtCore.QModelIndex()); 
+                self.model.setData(index, c.obtener_mujeres(row['id_local']))
                 r = r+1
 	
         self.ui.table_win.setModel(self.model)
-        self.ui.table_win.setColumnWidth(1, 345)
-        self.ui.table_win.setColumnWidth(2, 199)
-        self.ui.table_win.setColumnWidth(3, 250)
+        self.ui.table_win.setColumnWidth(1, 200)
+        self.ui.table_win.setColumnWidth(2, 300)
+        self.ui.table_win.setColumnWidth(3, 140)
 	self.ui.table_win.setColumnWidth(4, 100)
+	self.ui.table_win.setColumnWidth(5, 80)
+	self.ui.table_win.setColumnWidth(6, 80)
         self.ui.table_win.hideColumn(0)
         self.update_search()
 
@@ -170,7 +175,7 @@ class Locales(QtGui.QMainWindow):
             if (c.eliminar_local(id_local)):
                 self.load_datos()
                 msgBox = QtGui.QMessageBox()
-                msgBox.setText("EL registro fue eliminado.")
+                msgBox.setText("La ciudad fue eliminado.")
                 msgBox.exec_()
                 return True
             else:
@@ -205,7 +210,7 @@ class Locales(QtGui.QMainWindow):
 	form.ui.idlocal.setText(str(id_local))
         
         form.rejected.connect(self.load_datos)
-        #form.exec_()
+        form.exec_()
 
 
 def run():

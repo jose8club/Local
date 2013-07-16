@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'empleados.ui'
 #
-# Created: Mon Jul 15 05:09:14 2013
+# Created: Mon Jul 15 22:27:06 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,6 +48,11 @@ class Ui_Dialog(object):
         self.aceptar.setObjectName("aceptar")
         self.horizontalLayout_2.addWidget(self.aceptar)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.idlocal = QtGui.QLabel(Dialog)
+        self.idlocal.setEnabled(False)
+        self.idlocal.setGeometry(QtCore.QRect(30, 560, 41, 17))
+        self.idlocal.setText("")
+        self.idlocal.setObjectName("idlocal")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)

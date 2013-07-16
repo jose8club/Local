@@ -4,6 +4,7 @@
 import sys
 from PySide import QtGui, QtCore
 import controller
+import controller as c
 #Importamos el constructor de la clase generada automáticamente
 from form import Ui_Form
 class Form(QtGui.QDialog):
@@ -14,9 +15,8 @@ class Form(QtGui.QDialog):
         self.ui =  Ui_Form()
         self.ui.setupUi(self)
 	if rut is None:
-            self.ui.add_btn.clicked.connect(self.add)
-	    self.ui.comboBox.addItem("Masculino","M")
-	    self.ui.comboBox.addItem("Femenino","F")
+	    self.ui.comboBox.addItem("Masculino","Masculino")
+	    self.ui.comboBox.addItem("Femenino","Femenino")
         else:
             datos_empleado = controller.obtener_empleado_por_rut(rut)
 	    self.ui.rut_bar.setText(str(datos_empleado[0][0]))
@@ -25,13 +25,12 @@ class Form(QtGui.QDialog):
             self.ui.cargo_bar.setText(datos_empleado[0][2])
             self.ui.sueldo_bar.setText(datos_empleado[0][4])
 	    self.ui.local_bar.setText(str(datos_empleado[0][5]))
-	    if(datos_empleado[0][3]=="M"):
-		self.ui.comboBox.addItem("Masculino","M")
-		self.ui.comboBox.addItem("Femenino","F")
+	    if(datos_empleado[0][3]=="Masculino"):
+		self.ui.comboBox.addItem("Masculino","Masculino")
+		self.ui.comboBox.addItem("Femenino","Femenino")
             else:
-		self.ui.comboBox.addItem("Femenino","F")
-		self.ui.comboBox.addItem("Masculino","M")		
-            self.ui.add_btn.clicked.connect(self.edit)	  
+		self.ui.comboBox.addItem("Femenino","Femenino")
+		self.ui.comboBox.addItem("Masculino","Masculino")		  
 
         self.ui.cancel_btn.clicked.connect(self.cancel)
 	self.show()
@@ -39,28 +38,25 @@ class Form(QtGui.QDialog):
     def add(self):
         """función que crea el ingreso de empleados"""
 	genero = self.ui.comboBox.itemData(self.ui.comboBox.currentIndex())	
-        if self.ui.rut_bar.text() == "":
-            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el rut del empleado.")
-        elif self.ui.nombre_bar.text() == "":
-            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese un nombre del empleado.")
-        elif self.ui.cargo_bar.text() == "":
-            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el cargo.")
-        elif self.ui.sueldo_bar.text() == "":
-            msgBox = QtGui.QMessageBox.warning(self,"Error","Ingrese el sueldo del empleado.")      
-	else:
-	    res = controller.agregar_empleado(self.ui.rut_bar.text(),self.ui.nombre_bar.text(),self.ui.cargo_bar.text(),
-            	genero,self.ui.sueldo_bar.text(),self.ui.local_bar.text())
-        if res:
-	    self.reject()
-            msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
-	else:
-            msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo agregar el registro.")
+	if(self.ui.rut_bar.text()!="" and self.ui.nombre_bar.text()!="" and self.ui.cargo_bar.text()!=""
+		and self.ui.sueldo_bar.text()!=""):        
+	   	try:
+			int(self.ui.rut_bar.text())
+			res = controller.agregar_empleado(int(self.ui.rut_bar.text()),self.ui.nombre_bar.text(),self.ui.cargo_bar.text(),
+            			genero,self.ui.sueldo_bar.text(),self.ui.local_bar.text())
+			if res:
+	   			self.reject()
+            			msgBox = QtGui.QMessageBox.information(self,"Exito","El empleado fue agregado.")
+			else:
+           			msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo agregar el empleado.")
 
+		except:
+			msgBox = QtGui.QMessageBox.information(self,"Error","ingrese el rut sin puntos ni guion")
+	else:
+		msgBox = QtGui.QMessageBox.information(self,"Error","ingrese todos los campos de informacion")    	
+	
 
     def edit(self):
-        """
-        función que permite editar al empleado seleccionado en la grilla de empleados
-        """
         rut = self.ui.rut_bar.text()
 	nombre = self.ui.nombre_bar.text()
         cargo = self.ui.cargo_bar.text()

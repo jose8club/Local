@@ -186,4 +186,25 @@ def obtener_id_ciudad(nombre):
     con.close()
     return id_ciudad
 
+def obtener_hombres(id_local):
+    con = connect()
+    c = con.cursor()
+    query = """SELECT a.genero, b.nombre as 'local'
+            FROM empleado a, local b WHERE a.fk_id_local = b.id_local
+            AND a.fk_id_local = ? AND a.genero = ? """
+    result = c.execute(query, [id_local,"Masculino"])
+    hombres = result.fetchall()
+    con.close()
+    return len(hombres)
+
+def obtener_mujeres(id_local):
+    con = connect()
+    c = con.cursor()
+    query = """SELECT a.genero, b.nombre as 'local'
+            FROM empleado a, local b WHERE a.fk_id_local = b.id_local
+            AND a.fk_id_local = ? AND a.genero = ? """
+    result = c.execute(query, [id_local,"Femenino"])
+    mujeres = result.fetchall()
+    con.close()
+    return len(mujeres)
 

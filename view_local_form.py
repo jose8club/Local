@@ -16,7 +16,6 @@ class Form(QtGui.QDialog):
         self.ui =  Ui_Form()
         self.ui.setupUi(self)
 	self.ui.PushSalir.clicked.connect(self.cancel)
-	self.ui.PushAceptar.clicked.connect(self.edit)
         self.show()
         
     def add(self):
@@ -27,10 +26,10 @@ class Form(QtGui.QDialog):
 		if(id_ciudad!="null"):
 			res = c.agregar_local(self.ui.lineNombre.text(),self.ui.lineDireccion.text(),id_ciudad) 
 			if res:
-			    msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
+			    msgBox = QtGui.QMessageBox.information(self,"Exito","El local fue agregado.")
 			    self.reject()
 	       		else:
-		    	    msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo agregar el registro.")
+		    	    msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo agregar el local.")
 		else:
 			msgBox = QtGui.QMessageBox.critical(self,"Error","Ingrese una ciudad valida")
 	else:
@@ -44,10 +43,10 @@ class Form(QtGui.QDialog):
 		if(id_ciudad!="null"):
 			res = c.editar_local(self.ui.idlocal.text(),self.ui.lineNombre.text(),self.ui.lineDireccion.text(),id_ciudad) 
 			if res:
-			    msgBox = QtGui.QMessageBox.information(self,"Exito","El registro fue agregado.")
+			    msgBox = QtGui.QMessageBox.information(self,"Exito","La informacion del local fue actualizada")
 			    self.reject()
 	       		else:
-		    	    msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo editar el registro.")
+		    	    msgBox = QtGui.QMessageBox.critical(self,"Error","No se pudo editar el local.")
 		else:
 			msgBox = QtGui.QMessageBox.critical(self,"Error","Ingrese una ciudad valida")
 	else:
