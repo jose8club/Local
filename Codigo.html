@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Metodos del programa &mdash; Local 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Local 1.0.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">Local 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="metodos-del-programa">
+<h1>Metodos del programa<a class="headerlink" href="#metodos-del-programa" title="Permalink to this headline">¶</a></h1>
+<p>main.py ventana principal</p>
+<dl class="docutils">
+<dt>class Locales(QtGui.QMainWindow):</dt>
+<dd>&#8220;&#8221;&#8220;Esta es la clase de la ventana principal que creará la grilla dond estan los locales&#8221;&#8220;&#8221;</dd>
+<dt>def __init__(self,parent=None):</dt>
+<dd>&#8220;&#8221;&#8220;constructor que crea la ventana&#8221;&#8220;&#8221;</dd>
+<dt>def render_table(self):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que define las funciones de la tabla&#8221;&#8220;&#8221;</dd>
+<dt>def conectar_tabla_empleados(self):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que conecta la grilla principal con la tabla de empleados&#8221;&#8220;&#8221;</dd>
+<dt>def set_signals(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que establece las señales con los diferentes botones, el filtro de texto y el combobox&#8221;&#8220;&#8221;</dd>
+<dt>def load_ciudades(self):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que define el combobox&#8221;&#8220;&#8221;</dd>
+<dt>def setup_search_bar(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que agrega la caracteristica de autocompletacion&#8221;&#8220;&#8221;</dd>
+<dt>def update_search(self):</dt>
+<dd>&#8220;&#8221;&#8220;completer para la busqueda de locales&#8221;&#8220;&#8221;</dd>
+<dt>def textChanged(self,string):</dt>
+<dd>&#8220;&#8221;&#8220;función que filtra la tabla con la palabra ingresada en la barra de busqueda&#8221;&#8220;&#8221;</dd>
+<dt>def pressAdd(self):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que abre y hace funcionar la ventana de agregar locales mediante el boton PushAceptar&#8221;&#8220;&#8221;</dd>
+<dt>def load_datos(self, locales=None):</dt>
+<dd>&#8220;&#8221;&#8220;función que carga todos los locales en la ventana principal&#8221;&#8220;&#8221;</dd>
+<dt>def pressDelete(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que borra los locales&#8221;&#8220;&#8221;</dd>
+<dt>def pressEdit(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que edita los locales&#8221;&#8220;&#8221;</dd>
+</dl>
+<p>controller_locales.py</p>
+<dl class="docutils">
+<dt>def connect():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que conecta a la base de datos&#8221;&#8220;&#8221;</dd>
+<dt>def get_locales_by_ciudad(id_ciudad):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene los locales por ciudad&#8221;&#8220;&#8221;</dd>
+<dt>def get_regiones():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene las regiones&#8221;&#8220;&#8221;</dd>
+<dt>def get_ciudades():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene las ciudades&#8221;&#8220;&#8221;</dd>
+<dt>def get_names():</dt>
+<dd>&#8220;&#8221;&#8220;devuelve un arreglo con los nombres de los locales&#8221;&#8220;&#8221;</dd>
+<dt>def buscar_por_ciudad(text):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene la ciudad por su nombre&#8221;&#8220;&#8221;</dd>
+<dt>def get_empleados_by_local(id_local):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene los empleados por cada local&#8221;&#8220;&#8221;</dd>
+<dt>def delete_local(id_local):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que borra los locales por su id_local&#8221;&#8220;&#8221;</dd>
+<dt>def add_local(nombre, direccion, fk_id_ciudad):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que agrega los locales&#8221;&#8220;&#8221;</dd>
+<dt>def search(pre=&#8217;*&#8217;,mar=&#8217;*&#8217;):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene los locales
+devuelve las entradas en que los nombres comienzan con la variable &#8216;pre&#8217; de ciudad &#8216;mar&#8217;.&#8221;&#8220;&#8221;</dd>
+</dl>
+<p>empleados_grid.py grilla de los empleados</p>
+<dl class="docutils">
+<dt>class Form(QtGui.QDialog):</dt>
+<dd>&#8220;&#8221;&#8220;clase que crea la grilla de empleados de cada local&#8221;&#8220;&#8221;</dd>
+<dt>def __init__(self, parent=None, id_local=None):</dt>
+<dd>&#8220;&#8221;&#8220;constructor que abre la ventana que muestra los empleados&#8221;&#8220;&#8221;</dd>
+<dt>def conectar(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que conecta la grilla de empleados con la forma de ingreso de empleados&#8221;&#8220;&#8221;</dd>
+<dt>def datos(self, id_local):</dt>
+<dd>&#8220;&#8221;&#8220;función que muestra los empleados de un local en específico, usando su id_local&#8221;&#8220;&#8221;</dd>
+<dt>def eliminar(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que elimina los empleados de cada local que solo pueden ser eliminados a través de la selección del registro a eliminar&#8221;&#8220;&#8221;</dd>
+</dl>
+<p>controller_local.py controller de los locales</p>
+<dl class="docutils">
+<dt>def connect():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que conecta a la base de datos&#8221;&#8220;&#8221;</dd>
+<dt>def get_regiones():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene las regiones&#8221;&#8220;&#8221;</dd>
+<dt>def get_ciudades():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene las ciudades&#8221;&#8220;&#8221;</dd>
+<dt>def get_names():</dt>
+<dd>&#8220;&#8221;&#8220;devuelve un arreglo con los nombres de los locales&#8221;&#8220;&#8221;</dd>
+<dt>def get_locales():</dt>
+<dd>&#8220;&#8221;&#8220;función que busca todos los locales&#8221;&#8220;&#8221;</dd>
+<dt>def get_locales_by_ciudad(id_ciudad):</dt>
+<dd>&#8220;&#8221;&#8220;función que busca los locales por ciudad&#8221;&#8220;&#8221;</dd>
+<dt>def buscar_por_ciudad(text):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene la ciudad por su nombre&#8221;&#8220;&#8221;</dd>
+<dt>def get_empleados_by_local(id_local):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene los empleados por cada local&#8221;&#8220;&#8221;</dd>
+<dt>def delete_local(id_local):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que borra los locales por su id_local&#8221;&#8220;&#8221;</dd>
+<dt>def add_local(nombre, direccion, fk_id_ciudad):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que agrega los locales&#8221;&#8220;&#8221;</dd>
+<dt>def search(pre=&#8217;*&#8217;,mar=&#8217;*&#8217;):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene los locales
+devuelve las entradas en que los nombres comienzan con la variable &#8216;pre&#8217; de ciudad &#8216;mar&#8217;.&#8221;&#8220;&#8221;</dd>
+</dl>
+<p>controller.py controller general que usaremos para los empleados</p>
+<dl class="docutils">
+<dt>def connect():</dt>
+<dd>&#8220;&#8221;&#8220;funcion que conecta a la base de datos&#8221;&#8220;&#8221;</dd>
+<dt>def obtener_empleados_por_local(id_local):</dt>
+<dd>&#8220;&#8221;&#8220;funcion que obtiene todos los empelados por local usando su id_local como identificador&#8221;&#8220;&#8221;</dd>
+<dt>def eliminar_local(id_local):</dt>
+<dd>&#8220;&#8221;&#8220;función que elimina el local al ser señalado mediante su id_local&#8221;&#8220;&#8221;</dd>
+<dt>def agregar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):</dt>
+<dd>&#8220;&#8221;&#8220;función que permite agregar empleados mediante sus diferentes campos&#8221;&#8220;&#8221;</dd>
+<dt>def editar_empleado(rut, nombre, cargo, genero, sueldo,fk_id_local):</dt>
+<dd>&#8220;&#8221;&#8220;función que permite editar los campos de los empleados&#8221;&#8220;&#8221;</dd>
+<dt>def obtener_empleado_por_rut(rut):</dt>
+<dd>&#8220;&#8221;&#8220;esta función permite obtener a los empleados mediante su rut&#8221;&#8220;&#8221;</dd>
+<dt>def eliminar_empleado(rut):</dt>
+<dd>&#8220;&#8221;&#8220;esta función permite eliminar a los empleados mediante su rut&#8221;&#8220;&#8221;</dd>
+</dl>
+<p>view_local_form es el programa que crea la ventana de ingreso y edición de locales</p>
+<dl class="docutils">
+<dt>class Form(QtGui.QDialog):</dt>
+<dd>&#8220;&#8221;&#8220;clase que crea la ventana de agregar locales&#8221;&#8220;&#8221;</dd>
+<dt>def __init__(self, parent=None):</dt>
+<dd>&#8220;&#8221;&#8220;constructor de la ventana de agregar locales&#8221;&#8220;&#8221;</dd>
+<dt>def add(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que se llama para agregar locales&#8221;&#8220;&#8221;</dd>
+<dt>def cancel(self):</dt>
+<dd>&#8220;&#8221;&#8220;función para cancelar el agregar un local nuevo&#8221;&#8220;&#8221;</dd>
+</dl>
+<p>empleados_form.py forma de agregar y editar empleados</p>
+<dl class="docutils">
+<dt>class Form(QtGui.QDialog):</dt>
+<dd>&#8220;&#8221;&#8220;clase que crea la ventana de ingreso de empleados&#8221;&#8220;&#8221;</dd>
+<dt>def __init__(self, parent=None):</dt>
+<dd>&#8220;&#8221;&#8220;constructor que crea la ventana de ingreso de empleados&#8221;&#8220;&#8221;</dd>
+<dt>def add(self):</dt>
+<dd>&#8220;&#8221;&#8220;función que crea el ingreso de empleados&#8221;&#8220;&#8221;</dd>
+<dt>def cancel(self):</dt>
+<dd>&#8220;&#8221;&#8220;ventana que permite la cancelación de la ventana&#8221;&#8220;&#8221;</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Codigo.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">Local 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, martin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
