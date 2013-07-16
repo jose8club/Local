@@ -58,6 +58,9 @@ class Form(QtGui.QDialog):
 
 
     def edit(self):
+        """
+        función que permite editar al empleado seleccionado en la grilla de empleados
+        """
         rut = self.ui.rut_bar.text()
 	nombre = self.ui.nombre_bar.text()
         cargo = self.ui.cargo_bar.text()
